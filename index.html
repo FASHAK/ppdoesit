@@ -25,29 +25,6 @@
     color: var(--text);
     font-family: 'DM Mono', monospace;
     overflow-x: hidden;
-    cursor: none;
-  }
-
-  /* Custom cursor */
-  .cursor {
-    width: 12px; height: 12px;
-    background: var(--accent);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.1s ease;
-    mix-blend-mode: difference;
-  }
-  .cursor-ring {
-    width: 40px; height: 40px;
-    border: 1px solid var(--accent);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9998;
-    transition: all 0.15s ease;
-    opacity: 0.5;
   }
 
   /* Grid background */
@@ -158,7 +135,7 @@
     letter-spacing: 1.5px;
     text-transform: uppercase;
     text-decoration: none;
-    cursor: none;
+    cursor: pointer;
     transition: all 0.3s;
     border: none;
   }
@@ -365,7 +342,7 @@
     font-family: 'Syne', sans-serif;
     font-size: 2.5rem;
     font-weight: 800;
-    cursor: none;
+    cursor: pointer;
     transition: background 0.2s, transform 0.15s;
     position: relative;
     overflow: hidden;
@@ -406,7 +383,7 @@
     border: 1px solid var(--border);
     background: transparent;
     color: var(--text);
-    cursor: none;
+    cursor: pointer;
     transition: all 0.3s;
   }
   .game-btn:hover { border-color: var(--accent); color: var(--accent); }
@@ -427,7 +404,7 @@
     border: 1px solid var(--border);
     background: transparent;
     color: var(--muted);
-    cursor: none;
+    cursor: pointer;
     transition: all 0.2s;
   }
   .mode-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(0,245,196,0.05); }
@@ -489,12 +466,9 @@
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
 <nav>
   <div class="logo">PP<span>does</span>it</div>
-  <a href="https://x.com/ppdoesit" target="_blank">@ppdoesit ↗</a>
+  <a href="mailto:pofasakin@gmail.com">pofasakin@gmail.com ↗</a>
 </nav>
 
 <!-- HERO -->
@@ -509,7 +483,7 @@
       I build intelligent systems that make businesses move faster. From workflow automation to custom AI pipelines — I turn repetitive processes into zero-effort outputs.
     </p>
     <div class="cta-row">
-      <a href="https://x.com/ppdoesit" target="_blank" class="btn btn-primary">Follow @ppdoesit</a>
+      <a href="mailto:pofasakin@gmail.com" class="btn btn-primary">Get In Touch</a>
       <a href="#services" class="btn btn-outline">What I Do</a>
     </div>
   </div>
@@ -613,7 +587,7 @@
 <footer>
   <div class="logo">PP<span>does</span>it</div>
   <p>Pelumi Fasakin &mdash; AI Automation Expert<br>
-    <a href="https://x.com/ppdoesit" target="_blank">x.com/ppdoesit</a>
+    <a href="mailto:pofasakin@gmail.com">pofasakin@gmail.com</a>
   </p>
   <p style="font-size:0.65rem;">© 2025 PPdoesit. All rights automated.</p>
 </footer>
