@@ -549,7 +549,7 @@
 
     <div class="scoreboard">
       <div class="score-box x-box" id="scoreX">
-        <div class="score-label">You (X)</div>
+        <div class="score-label" id="xLabel">You (X)</div>
         <div class="score-val" id="xScore">0</div>
       </div>
       <div class="score-box" style="min-width:60px;">
@@ -593,28 +593,11 @@
 </footer>
 
 <script>
-  // Cursor
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx - 6 + 'px';
-    cursor.style.top = my - 6 + 'px';
-  });
-  function animRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) *.12;
-    ring.style.left = rx - 20 + 'px';
-    ring.style.top = ry - 20 + 'px';
-    requestAnimationFrame(animRing);
-  }
-  animRing();
-
-  // GAME
+  // GAME STATE
   let board = Array(9).fill(null);
   let currentPlayer = 'X';
   let gameOver = false;
+  let aiThinking = false;
   let scores = { X: 0, O: 0, T: 0 };
   let mode = 'ai'; // 'ai' or '2p'
   const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
@@ -624,16 +607,25 @@
     document.getElementById('modeAI').classList.toggle('active', m === 'ai');
     document.getElementById('mode2P').classList.toggle('active', m === '2p');
     document.getElementById('oLabel').textContent = m === 'ai' ? 'AI (O)' : 'Player O';
-    document.getElementById('scoreX').querySelector('.score-label').textContent = m === 'ai' ? 'You (X)' : 'Player X';
+    document.getElementById('xLabel').textContent = m === 'ai' ? 'You (X)' : 'Player X';
     resetGame();
   }
 
   function handleClick(i) {
-    if (gameOver || board[i]) return;
+    // Ignore clicks if: game over, cell taken, AI is thinking, or it's AI's turn
+    if (gameOver || board[i] || aiThinking) return;
     if (mode === 'ai' && currentPlayer === 'O') return;
+
     placeMove(i, currentPlayer);
+
+    // Trigger AI move after player's move
     if (!gameOver && mode === 'ai' && currentPlayer === 'O') {
-      setTimeout(aiMove, 400);
+      aiThinking = true;
+      updateStatus();
+      setTimeout(() => {
+        aiMove();
+        aiThinking = false;
+      }, 450);
     }
   }
 
@@ -642,6 +634,7 @@
     const cell = document.getElementById('c' + i);
     cell.innerHTML = `<span class="cell-symbol">${player}</span>`;
     cell.classList.add(player.toLowerCase(), 'taken');
+
     const result = checkWin();
     if (result) {
       endGame(result);
@@ -654,8 +647,10 @@
   }
 
   function checkWin() {
-    for (let [a,b,c] of wins) {
-      if (board[a] && board[a] === board[b] && board[b] === board[c]) return { winner: board[a], line: [a,b,c] };
+    for (let [a, b, c] of wins) {
+      if (board[a] && board[a] === board[b] && board[b] === board[c]) {
+        return { winner: board[a], line: [a, b, c] };
+      }
     }
     return null;
   }
@@ -685,6 +680,7 @@
   }
 
   function updateStatus() {
+    if (gameOver) return;
     const st = document.getElementById('gameStatus');
     if (mode === 'ai') {
       st.textContent = currentPlayer === 'X' ? 'Your turn — place X' : 'AI is thinking...';
@@ -696,11 +692,13 @@
   function aiMove() {
     if (gameOver) return;
     const move = getBestMove();
-    placeMove(move, 'O');
+    if (move !== undefined && move !== null) {
+      placeMove(move, 'O');
+    }
   }
 
   function getBestMove() {
-    // Try win
+    // Try to win
     for (let i = 0; i < 9; i++) {
       if (!board[i]) {
         board[i] = 'O';
@@ -708,7 +706,7 @@
         board[i] = null;
       }
     }
-    // Block
+    // Block player from winning
     for (let i = 0; i < 9; i++) {
       if (!board[i]) {
         board[i] = 'X';
@@ -716,19 +714,22 @@
         board[i] = null;
       }
     }
-    // Center
+    // Take center
     if (!board[4]) return 4;
-    // Corners
-    const corners = [0,2,6,8].filter(i => !board[i]);
+    // Take a corner
+    const corners = [0, 2, 6, 8].filter(i => !board[i]);
     if (corners.length) return corners[Math.floor(Math.random() * corners.length)];
-    // Edges
-    return [1,3,5,7].find(i => !board[i]);
+    // Take any edge
+    const edges = [1, 3, 5, 7].filter(i => !board[i]);
+    if (edges.length) return edges[0];
+    return null;
   }
 
   function resetGame() {
     board = Array(9).fill(null);
     currentPlayer = 'X';
     gameOver = false;
+    aiThinking = false;
     for (let i = 0; i < 9; i++) {
       const cell = document.getElementById('c' + i);
       cell.innerHTML = '';
