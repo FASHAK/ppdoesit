@@ -17,7 +17,6 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
 
   body {
@@ -32,7 +31,7 @@
     content: '';
     position: fixed;
     inset: 0;
-    background-image: 
+    background-image:
       linear-gradient(rgba(0,245,196,0.03) 1px, transparent 1px),
       linear-gradient(90deg, rgba(0,245,196,0.03) 1px, transparent 1px);
     background-size: 60px 60px;
@@ -40,7 +39,7 @@
     z-index: 0;
   }
 
-  /* NAV */
+  /* ── NAV ── */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -72,13 +71,93 @@
   }
   nav a:hover { color: var(--accent); }
 
-  /* HERO */
+  /* ── DID YOU KNOW TICKER ── */
+  .ticker-bar {
+    position: fixed;
+    top: 73px;
+    left: 0; right: 0;
+    z-index: 99;
+    background: rgba(0,245,196,0.04);
+    border-bottom: 1px solid rgba(0,245,196,0.1);
+    padding: 0.65rem 4rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    backdrop-filter: blur(12px);
+  }
+
+  .ticker-tag {
+    font-size: 0.55rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.2rem 0.6rem;
+    flex-shrink: 0;
+    opacity: 0.85;
+    margin-top: 0.15rem;
+    white-space: nowrap;
+  }
+
+  .ticker-divider {
+    width: 1px;
+    height: 14px;
+    background: var(--border);
+    flex-shrink: 0;
+    margin-top: 0.3rem;
+  }
+
+  .ticker-text-wrap {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .ticker-text {
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.3px;
+    line-height: 1.65;
+    white-space: normal;
+    word-wrap: break-word;
+    display: block;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .ticker-text.exit {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  .ticker-text.enter {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  .ticker-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    opacity: 0.5;
+    margin-top: 0.45rem;
+    animation: blink 2s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  /* ── HERO ── */
   .hero {
     min-height: 100vh;
     display: flex;
     align-items: center;
     position: relative;
-    padding: 8rem 4rem 4rem;
+    padding: 11rem 4rem 4rem;
     z-index: 1;
   }
 
@@ -138,6 +217,7 @@
     cursor: pointer;
     transition: all 0.3s;
     border: none;
+    display: inline-block;
   }
 
   .btn-primary {
@@ -163,11 +243,40 @@
     text-transform: uppercase;
     opacity: 0.4;
   }
-  .float-el:nth-child(1) { top: 20%; right: 8%; animation: drift 8s ease-in-out infinite; }
-  .float-el:nth-child(2) { top: 50%; right: 12%; animation: drift 10s ease-in-out infinite reverse; }
-  .float-el:nth-child(3) { bottom: 20%; right: 5%; animation: drift 7s ease-in-out infinite; }
+  .float-el:nth-child(2) { top: 20%; right: 8%; animation: drift 8s ease-in-out infinite; }
+  .float-el:nth-child(3) { top: 50%; right: 12%; animation: drift 10s ease-in-out infinite reverse; }
+  .float-el:nth-child(4) { bottom: 20%; right: 5%; animation: drift 7s ease-in-out infinite; }
 
-  /* SERVICES */
+  /* ── STATS ── */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 4rem;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+  }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.5rem;
+  }
+
+  /* ── SERVICES ── */
   section {
     padding: 6rem 4rem;
     position: relative;
@@ -218,36 +327,7 @@
     color: var(--muted);
   }
 
-  /* STATS */
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    padding: 4rem;
-    background: var(--surface);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    position: relative;
-    z-index: 1;
-  }
-
-  .stat-num {
-    font-family: 'Syne', sans-serif;
-    font-size: 3rem;
-    font-weight: 800;
-    color: var(--accent);
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-size: 0.7rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 0.5rem;
-  }
-
-  /* TIC TAC TOE */
+  /* ── TIC TAC TOE ── */
   .game-section {
     padding: 6rem 4rem;
     position: relative;
@@ -291,7 +371,6 @@
     min-width: 90px;
     transition: border-color 0.3s;
   }
-
   .score-box.active { border-color: var(--accent); }
 
   .score-label {
@@ -343,25 +422,16 @@
     font-size: 2.5rem;
     font-weight: 800;
     cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
+    transition: background 0.2s;
     position: relative;
     overflow: hidden;
     user-select: none;
   }
-
-  .cell:hover:not(.taken) {
-    background: var(--surface);
-  }
-
+  .cell:hover:not(.taken) { background: var(--surface); }
   .cell.taken { cursor: not-allowed; }
-
   .cell.x { color: var(--accent); }
   .cell.o { color: var(--accent2); }
-
-  .cell.winner {
-    background: rgba(0,245,196,0.1);
-    animation: pulse 0.5s ease;
-  }
+  .cell.winner { background: rgba(0,245,196,0.1); animation: pulse 0.5s ease; }
   .cell.o.winner { background: rgba(255,77,109,0.1); }
 
   .cell-symbol {
@@ -409,7 +479,7 @@
   }
   .mode-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(0,245,196,0.05); }
 
-  /* FOOTER */
+  /* ── FOOTER ── */
   footer {
     padding: 3rem 4rem;
     border-top: 1px solid var(--border);
@@ -433,32 +503,33 @@
     text-decoration: none;
   }
 
-  /* ANIMATIONS */
+  /* ── ANIMATIONS ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+    to   { opacity: 1; transform: translateY(0); }
   }
-
   @keyframes drift {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
+    50%       { transform: translateY(-20px); }
   }
-
   @keyframes popIn {
     from { transform: scale(0) rotate(-10deg); opacity: 0; }
-    to { transform: scale(1) rotate(0); opacity: 1; }
+    to   { transform: scale(1) rotate(0);      opacity: 1; }
   }
-
   @keyframes pulse {
     0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+    50%       { transform: scale(1.05); }
   }
 
-  /* RESPONSIVE */
+  /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
     nav { padding: 1.2rem 2rem; }
-    .hero, section, .game-section { padding: 5rem 2rem 3rem; }
-    .stats { padding: 3rem 2rem; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .ticker-bar { top: 62px; padding: 0.6rem 1.2rem; gap: 0.8rem; }
+    .ticker-text { font-size: 0.67rem; }
+    .hero { padding: 9rem 2rem 3rem; }
+    section { padding: 4rem 2rem; }
+    .game-section { padding: 4rem 2rem; }
+    .stats { padding: 2.5rem 1.5rem; gap: 1rem; }
     .stat-num { font-size: 2rem; }
     footer { padding: 2rem; flex-direction: column; gap: 1rem; text-align: center; }
   }
@@ -470,6 +541,16 @@
   <div class="logo">PP<span>does</span>it</div>
   <a href="mailto:pofasakin@gmail.com">pofasakin@gmail.com ↗</a>
 </nav>
+
+<!-- DID YOU KNOW TICKER -->
+<div class="ticker-bar">
+  <span class="ticker-tag">Did You Know</span>
+  <div class="ticker-divider"></div>
+  <div class="ticker-text-wrap">
+    <span class="ticker-text" id="tickerText"></span>
+  </div>
+  <div class="ticker-dot"></div>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -495,7 +576,7 @@
 <!-- STATS -->
 <div class="stats">
   <div>
-    <div class="stat-num">∞</div>
+    <div class="stat-num">&#x221e;</div>
     <div class="stat-label">Hours saved via automation</div>
   </div>
   <div>
@@ -583,168 +664,217 @@
   </div>
 </section>
 
+<!-- Hidden background audio -->
+<audio id="bgAudio" loop preload="none"></audio>
+
 <!-- FOOTER -->
 <footer>
   <div class="logo">PP<span>does</span>it</div>
   <p>Pelumi Fasakin &mdash; AI Automation Expert<br>
     <a href="mailto:pofasakin@gmail.com">pofasakin@gmail.com</a>
   </p>
-  <p style="font-size:0.65rem;">© 2025 PPdoesit. All rights automated.</p>
+  <p style="font-size:0.65rem;">&#169; 2025 PPdoesit. All rights automated.</p>
 </footer>
 
 <script>
-  // GAME STATE
-  let board = Array(9).fill(null);
-  let currentPlayer = 'X';
-  let gameOver = false;
-  let aiThinking = false;
-  let scores = { X: 0, O: 0, T: 0 };
-  let mode = 'ai'; // 'ai' or '2p'
-  const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+// ── SCROLL TO TOP ON LOAD ────────────────────────────────────────────────────
+if (history.scrollRestoration) history.scrollRestoration = 'manual';
+window.addEventListener('load', function() { window.scrollTo(0, 0); });
 
-  function setMode(m) {
-    mode = m;
-    document.getElementById('modeAI').classList.toggle('active', m === 'ai');
-    document.getElementById('mode2P').classList.toggle('active', m === '2p');
-    document.getElementById('oLabel').textContent = m === 'ai' ? 'AI (O)' : 'Player O';
-    document.getElementById('xLabel').textContent = m === 'ai' ? 'You (X)' : 'Player X';
-    resetGame();
+
+// ── DID YOU KNOW TICKER ──────────────────────────────────────────────────────
+var facts = [
+  "GPT-4 was trained on an estimated 1 trillion tokens of text — more words than a human could read in 10,000 lifetimes.",
+  "The term 'Artificial Intelligence' was coined by John McCarthy in 1956 at the Dartmouth Conference.",
+  "By 2025, over 77% of businesses globally use AI in at least one business function.",
+  "AlphaFold by DeepMind solved the 50-year protein folding problem — unlocking breakthroughs in drug discovery.",
+  "AI automation is projected to contribute $15.7 trillion to the global economy by 2030.",
+  "The average enterprise using AI automation saves 3.2 hours per employee per day on repetitive tasks.",
+  "Large language models like Claude can process and reason over hundreds of thousands of words in a single context.",
+  "Nigeria is among Africa's fastest-growing tech hubs, with Lagos ranked top 3 in the continent for AI startups.",
+  "Workflow automation can reduce human error in data entry by up to 90%, boosting accuracy across operations.",
+  "ChatGPT reached 100 million users in just 2 months — the fastest app adoption in history at the time.",
+  "AI agents can now autonomously browse the web, write code, and execute multi-step tasks without human input.",
+  "The first industrial robot, Unimate, was deployed by General Motors in 1961 — automation has never stopped since.",
+  "Transformer architecture, invented in 2017, is the backbone of almost every modern AI language model.",
+  "Reinforcement learning from human feedback (RLHF) is the key technique that made AI assistants genuinely useful.",
+  "Africa's digital economy is expected to reach $712 billion by 2050, with AI automation at its core."
+];
+
+var factIndex = Math.floor(Math.random() * facts.length);
+var tickerEl = document.getElementById('tickerText');
+tickerEl.textContent = facts[factIndex];
+
+function showNextFact() {
+  tickerEl.classList.add('exit');
+  setTimeout(function() {
+    factIndex = (factIndex + 1) % facts.length;
+    tickerEl.textContent = facts[factIndex];
+    tickerEl.classList.remove('exit');
+    tickerEl.classList.add('enter');
+    void tickerEl.offsetHeight; // force reflow
+    tickerEl.classList.remove('enter');
+  }, 500);
+}
+
+setInterval(showNextFact, 7000);
+
+
+// ── BACKGROUND MUSIC ─────────────────────────────────────────────────────────
+var musicSrc = 'https://archive.org/download/Kevin_MacLeod_-_Cipher/Kevin_MacLeod_-_Cipher.mp3';
+var bgAudio = document.getElementById('bgAudio');
+var musicStarted = false;
+
+function startMusic() {
+  if (musicStarted) return;
+  musicStarted = true;
+  bgAudio.src = musicSrc;
+  bgAudio.volume = 0.4;
+  bgAudio.loop = true;
+  bgAudio.play().catch(function() { musicStarted = false; });
+}
+
+['click', 'keydown', 'scroll', 'touchstart'].forEach(function(evt) {
+  document.addEventListener(evt, startMusic, { once: true, passive: true });
+});
+
+
+// ── TIC TAC TOE ──────────────────────────────────────────────────────────────
+var board = Array(9).fill(null);
+var currentPlayer = 'X';
+var gameOver = false;
+var aiThinking = false;
+var scores = { X: 0, O: 0, T: 0 };
+var mode = 'ai';
+var wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+
+function setMode(m) {
+  mode = m;
+  document.getElementById('modeAI').classList.toggle('active', m === 'ai');
+  document.getElementById('mode2P').classList.toggle('active', m === '2p');
+  document.getElementById('oLabel').textContent = m === 'ai' ? 'AI (O)' : 'Player O';
+  document.getElementById('xLabel').textContent = m === 'ai' ? 'You (X)' : 'Player X';
+  resetGame();
+}
+
+function handleClick(i) {
+  if (gameOver || board[i] || aiThinking) return;
+  if (mode === 'ai' && currentPlayer === 'O') return;
+  placeMove(i, currentPlayer);
+  if (!gameOver && mode === 'ai' && currentPlayer === 'O') {
+    aiThinking = true;
+    updateStatus();
+    setTimeout(function() { aiMove(); aiThinking = false; }, 450);
   }
+}
 
-  function handleClick(i) {
-    // Ignore clicks if: game over, cell taken, AI is thinking, or it's AI's turn
-    if (gameOver || board[i] || aiThinking) return;
-    if (mode === 'ai' && currentPlayer === 'O') return;
-
-    placeMove(i, currentPlayer);
-
-    // Trigger AI move after player's move
-    if (!gameOver && mode === 'ai' && currentPlayer === 'O') {
-      aiThinking = true;
-      updateStatus();
-      setTimeout(() => {
-        aiMove();
-        aiThinking = false;
-      }, 450);
-    }
-  }
-
-  function placeMove(i, player) {
-    board[i] = player;
-    const cell = document.getElementById('c' + i);
-    cell.innerHTML = `<span class="cell-symbol">${player}</span>`;
-    cell.classList.add(player.toLowerCase(), 'taken');
-
-    const result = checkWin();
-    if (result) {
-      endGame(result);
-    } else if (board.every(Boolean)) {
-      endGame('TIE');
-    } else {
-      currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-      updateStatus();
-    }
-  }
-
-  function checkWin() {
-    for (let [a, b, c] of wins) {
-      if (board[a] && board[a] === board[b] && board[b] === board[c]) {
-        return { winner: board[a], line: [a, b, c] };
-      }
-    }
-    return null;
-  }
-
-  function endGame(result) {
-    gameOver = true;
-    const st = document.getElementById('gameStatus');
-    if (result === 'TIE') {
-      scores.T++;
-      document.getElementById('tieScore').textContent = scores.T;
-      st.textContent = "It's a tie — well played";
-      st.className = 'game-status';
-    } else {
-      result.line.forEach(i => {
-        document.getElementById('c' + i).classList.add('winner');
-      });
-      scores[result.winner]++;
-      document.getElementById(result.winner === 'X' ? 'xScore' : 'oScore').textContent = scores[result.winner];
-      if (mode === 'ai') {
-        st.textContent = result.winner === 'X' ? '🎉 You won! Impressive.' : '🤖 AI wins. Try again?';
-        st.className = 'game-status ' + (result.winner === 'X' ? 'win' : 'lose');
-      } else {
-        st.textContent = `Player ${result.winner} wins!`;
-        st.className = 'game-status win';
-      }
-    }
-  }
-
-  function updateStatus() {
-    if (gameOver) return;
-    const st = document.getElementById('gameStatus');
-    if (mode === 'ai') {
-      st.textContent = currentPlayer === 'X' ? 'Your turn — place X' : 'AI is thinking...';
-    } else {
-      st.textContent = `Player ${currentPlayer}'s turn`;
-    }
-  }
-
-  function aiMove() {
-    if (gameOver) return;
-    const move = getBestMove();
-    if (move !== undefined && move !== null) {
-      placeMove(move, 'O');
-    }
-  }
-
-  function getBestMove() {
-    // Try to win
-    for (let i = 0; i < 9; i++) {
-      if (!board[i]) {
-        board[i] = 'O';
-        if (checkWin()) { board[i] = null; return i; }
-        board[i] = null;
-      }
-    }
-    // Block player from winning
-    for (let i = 0; i < 9; i++) {
-      if (!board[i]) {
-        board[i] = 'X';
-        if (checkWin()) { board[i] = null; return i; }
-        board[i] = null;
-      }
-    }
-    // Take center
-    if (!board[4]) return 4;
-    // Take a corner
-    const corners = [0, 2, 6, 8].filter(i => !board[i]);
-    if (corners.length) return corners[Math.floor(Math.random() * corners.length)];
-    // Take any edge
-    const edges = [1, 3, 5, 7].filter(i => !board[i]);
-    if (edges.length) return edges[0];
-    return null;
-  }
-
-  function resetGame() {
-    board = Array(9).fill(null);
-    currentPlayer = 'X';
-    gameOver = false;
-    aiThinking = false;
-    for (let i = 0; i < 9; i++) {
-      const cell = document.getElementById('c' + i);
-      cell.innerHTML = '';
-      cell.className = 'cell';
-    }
+function placeMove(i, player) {
+  board[i] = player;
+  var cell = document.getElementById('c' + i);
+  cell.innerHTML = '<span class="cell-symbol">' + player + '</span>';
+  cell.classList.add(player.toLowerCase(), 'taken');
+  var result = checkWin();
+  if (result) {
+    endGame(result);
+  } else if (board.every(Boolean)) {
+    endGame('TIE');
+  } else {
+    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
     updateStatus();
   }
+}
 
-  function resetScore() {
-    scores = { X: 0, O: 0, T: 0 };
-    document.getElementById('xScore').textContent = 0;
-    document.getElementById('oScore').textContent = 0;
-    document.getElementById('tieScore').textContent = 0;
-    resetGame();
+function checkWin() {
+  for (var w = 0; w < wins.length; w++) {
+    var a = wins[w][0], b = wins[w][1], c = wins[w][2];
+    if (board[a] && board[a] === board[b] && board[b] === board[c]) {
+      return { winner: board[a], line: [a, b, c] };
+    }
   }
+  return null;
+}
+
+function endGame(result) {
+  gameOver = true;
+  var st = document.getElementById('gameStatus');
+  if (result === 'TIE') {
+    scores.T++;
+    document.getElementById('tieScore').textContent = scores.T;
+    st.textContent = "It's a tie — well played";
+    st.className = 'game-status';
+  } else {
+    result.line.forEach(function(i) {
+      document.getElementById('c' + i).classList.add('winner');
+    });
+    scores[result.winner]++;
+    document.getElementById(result.winner === 'X' ? 'xScore' : 'oScore').textContent = scores[result.winner];
+    if (mode === 'ai') {
+      st.textContent = result.winner === 'X' ? '🎉 You won! Impressive.' : '🤖 AI wins. Try again?';
+      st.className = 'game-status ' + (result.winner === 'X' ? 'win' : 'lose');
+    } else {
+      st.textContent = 'Player ' + result.winner + ' wins!';
+      st.className = 'game-status win';
+    }
+  }
+}
+
+function updateStatus() {
+  if (gameOver) return;
+  var st = document.getElementById('gameStatus');
+  if (mode === 'ai') {
+    st.textContent = currentPlayer === 'X' ? 'Your turn — place X' : 'AI is thinking...';
+  } else {
+    st.textContent = 'Player ' + currentPlayer + "'s turn";
+  }
+}
+
+function aiMove() {
+  if (gameOver) return;
+  var move = getBestMove();
+  if (move !== null) placeMove(move, 'O');
+}
+
+function getBestMove() {
+  var i;
+  // Win
+  for (i = 0; i < 9; i++) {
+    if (!board[i]) { board[i] = 'O'; if (checkWin()) { board[i] = null; return i; } board[i] = null; }
+  }
+  // Block
+  for (i = 0; i < 9; i++) {
+    if (!board[i]) { board[i] = 'X'; if (checkWin()) { board[i] = null; return i; } board[i] = null; }
+  }
+  // Center
+  if (!board[4]) return 4;
+  // Corners
+  var corners = [0, 2, 6, 8].filter(function(i) { return !board[i]; });
+  if (corners.length) return corners[Math.floor(Math.random() * corners.length)];
+  // Edges
+  var edges = [1, 3, 5, 7].filter(function(i) { return !board[i]; });
+  if (edges.length) return edges[0];
+  return null;
+}
+
+function resetGame() {
+  board = Array(9).fill(null);
+  currentPlayer = 'X';
+  gameOver = false;
+  aiThinking = false;
+  for (var i = 0; i < 9; i++) {
+    var cell = document.getElementById('c' + i);
+    cell.innerHTML = '';
+    cell.className = 'cell';
+  }
+  updateStatus();
+}
+
+function resetScore() {
+  scores = { X: 0, O: 0, T: 0 };
+  document.getElementById('xScore').textContent = 0;
+  document.getElementById('oScore').textContent = 0;
+  document.getElementById('tieScore').textContent = 0;
+  resetGame();
+}
 </script>
 </body>
 </html>
