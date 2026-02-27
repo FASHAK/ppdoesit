@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PPdoesit — Pelumi Fasakin | AI Automation Expert</title>
+<title>PPdoesit &mdash; Pelumi Fasakin | AI Automation Expert</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -20,32 +20,25 @@
   body { background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; overflow-x: hidden; }
   body::before {
     content: ''; position: fixed; inset: 0;
-    background-image: linear-gradient(rgba(0,245,196,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,245,196,0.03) 1px, transparent 1px);
+    background-image: linear-gradient(rgba(0,245,196,0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(0,245,196,0.03) 1px, transparent 1px);
     background-size: 60px 60px; pointer-events: none; z-index: 0;
   }
 
   /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center;
-    backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,245,196,0.08);
-  }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,245,196,0.08); }
   .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; color: var(--accent); letter-spacing: -1px; }
   .logo span { color: var(--accent2); }
   .nav-links { display: flex; align-items: center; gap: 1.5rem; }
-  nav a { color: var(--muted); text-decoration: none; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; transition: color 0.3s; display: inline-flex; align-items: center; gap: 5px; }
-  nav a:hover { color: var(--accent); }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; transition: color 0.3s; display: inline-flex; align-items: center; gap: 5px; }
+  .nav-links a:hover { color: var(--accent); }
 
   /* TICKER */
-  .ticker-bar {
-    position: fixed; top: 73px; left: 0; right: 0; z-index: 99;
-    background: rgba(0,245,196,0.04); border-bottom: 1px solid rgba(0,245,196,0.1);
-    padding: 0.65rem 4rem; display: flex; align-items: center; gap: 1.2rem; backdrop-filter: blur(12px);
-  }
+  .ticker-bar { position: fixed; top: 73px; left: 0; right: 0; z-index: 99; background: rgba(0,245,196,0.04); border-bottom: 1px solid rgba(0,245,196,0.1); padding: 0.65rem 4rem; display: flex; align-items: center; gap: 1.2rem; backdrop-filter: blur(12px); }
   .ticker-tag { font-size: 0.55rem; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.2rem 0.6rem; flex-shrink: 0; opacity: 0.85; white-space: nowrap; }
   .ticker-divider { width: 1px; height: 14px; background: var(--border); flex-shrink: 0; }
   .ticker-text-wrap { flex: 1; min-width: 0; overflow: hidden; }
-  .ticker-text { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.3px; line-height: 1.5; display: block; transition: opacity 0.4s ease, transform 0.4s ease; opacity: 1; transform: translateY(0); }
+  .ticker-text { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.3px; line-height: 1.5; display: block; transition: opacity 0.4s ease, transform 0.4s ease; }
   .ticker-text.exit { opacity: 0; transform: translateY(-8px); }
   .ticker-text.enter { opacity: 0; transform: translateY(8px); }
   .ticker-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; opacity: 0.6; animation: blink 2s ease-in-out infinite; }
@@ -62,6 +55,8 @@
   .btn { padding: 0.85rem 2rem; font-family: 'DM Mono', monospace; font-size: 0.8rem; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: all 0.3s; border: none; display: inline-flex; align-items: center; gap: 7px; }
   .btn-primary { background: var(--accent); color: var(--bg); font-weight: 500; }
   .btn-primary:hover { background: #00c9a0; transform: translateY(-2px); }
+  .btn-x { background: #000; color: #fff; border: 1px solid #333; }
+  .btn-x:hover { background: #111; border-color: #fff; transform: translateY(-2px); }
   .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
   .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
   .float-el { position: absolute; font-size: 0.6rem; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; opacity: 0.4; pointer-events: none; }
@@ -100,14 +95,14 @@
   .game-status.lose { color: var(--accent2); }
   .game-status.tie-clearing { color: #f5a623; }
   .board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; background: var(--border); border: 1px solid var(--border); padding: 6px; margin-bottom: 1.5rem; }
-  .cell { background: var(--bg); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; cursor: pointer; transition: background 0.2s, opacity 0.3s; position: relative; overflow: hidden; user-select: none; }
+  .cell { background: var(--bg); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; cursor: pointer; transition: background 0.2s, opacity 0.35s; position: relative; overflow: hidden; user-select: none; }
   .cell:hover:not(.taken) { background: var(--surface); }
   .cell.taken { cursor: not-allowed; }
   .cell.x { color: var(--accent); }
   .cell.o { color: var(--accent2); }
   .cell.winner { background: rgba(0,245,196,0.1); animation: pulse 0.5s ease; }
   .cell.o.winner { background: rgba(255,77,109,0.1); }
-  .cell.vanishing { opacity: 0.15; transition: opacity 0.4s ease; }
+  .cell.vanishing { opacity: 0.12; }
   .cell-symbol { animation: popIn 0.2s cubic-bezier(0.34,1.56,0.64,1) both; }
   .game-btns { display: flex; gap: 1rem; justify-content: center; }
   .game-btn { padding: 0.7rem 1.5rem; font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; border: 1px solid var(--border); background: transparent; color: var(--text); cursor: pointer; transition: all 0.3s; }
@@ -132,7 +127,7 @@
   @media (max-width: 768px) {
     nav { padding: 1.2rem 2rem; }
     .nav-links { gap: 0.8rem; }
-    nav a { font-size: 0.65rem; letter-spacing: 1px; }
+    .nav-links a { font-size: 0.65rem; letter-spacing: 1px; }
     .ticker-bar { top: 62px; padding: 0.6rem 1.2rem; gap: 0.8rem; }
     .ticker-text { font-size: 0.67rem; }
     .hero { padding: 9rem 2rem 3rem; }
@@ -149,13 +144,13 @@
 <nav>
   <div class="logo">PP<span>does</span>it</div>
   <div class="nav-links">
-    <a href="mailto:pofasakin@gmail.com">
+    <a id="navEmail" href="#">
       <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-      pofasakin@gmail.com ↗
+      pofasakin&#64;gmail.com &#8599;
     </a>
-    <a href="https://x.com/ppdoesit" target="_blank">
+    <a href="https://x.com/ppdoesit" target="_blank" rel="noopener">
       <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.738l7.73-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      @ppdoesit ↗
+      @ppdoesit &#8599;
     </a>
   </div>
 </nav>
@@ -165,7 +160,7 @@
   <span class="ticker-tag">Did You Know</span>
   <div class="ticker-divider"></div>
   <div class="ticker-text-wrap">
-    <span class="ticker-text" id="tickerText">Loading fact...</span>
+    <span class="ticker-text" id="tickerText"></span>
   </div>
   <div class="ticker-dot"></div>
 </div>
@@ -175,11 +170,15 @@
   <div class="hero-content">
     <div class="tag">// AI Automation Expert</div>
     <h1>Pelumi<br><span class="line2">Fasakin.</span></h1>
-    <p class="hero-desc">I build intelligent systems that make businesses move faster. From workflow automation to custom AI pipelines — I turn repetitive processes into zero-effort outputs.</p>
+    <p class="hero-desc">I build intelligent systems that make businesses move faster. From workflow automation to custom AI pipelines &mdash; I turn repetitive processes into zero-effort outputs.</p>
     <div class="cta-row">
-      <a href="mailto:pofasakin@gmail.com" class="btn btn-primary">
+      <a id="heroEmail" href="#" class="btn btn-primary">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-        Get In Touch
+        Email Me
+      </a>
+      <a href="https://x.com/ppdoesit" target="_blank" rel="noopener" class="btn btn-x">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.738l7.73-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        DM on X
       </a>
       <a href="#services" class="btn btn-outline">What I Do</a>
     </div>
@@ -212,12 +211,12 @@
     <div class="service-card">
       <div class="service-num">01</div>
       <div class="service-title">AI Workflow Automation</div>
-      <p class="service-desc">Design and deploy end-to-end automation pipelines that eliminate repetitive tasks. From data ingestion to output delivery — fully hands-free.</p>
+      <p class="service-desc">Design and deploy end-to-end automation pipelines that eliminate repetitive tasks. From data ingestion to output delivery &mdash; fully hands-free.</p>
     </div>
     <div class="service-card">
       <div class="service-num">02</div>
       <div class="service-title">Custom AI Agents</div>
-      <p class="service-desc">Build autonomous AI agents that think, decide, and act on your behalf. Customer support bots, research agents, lead qualification systems — done.</p>
+      <p class="service-desc">Build autonomous AI agents that think, decide, and act on your behalf. Customer support bots, research agents, lead qualification systems &mdash; done.</p>
     </div>
     <div class="service-card">
       <div class="service-num">03</div>
@@ -237,13 +236,13 @@
   <div class="section-label" style="text-align:center;">// Take a Break</div>
   <div class="game-container">
     <h2 class="game-title">Tic-Tac-Toe</h2>
-    <p class="game-subtitle">You vs AI — can you beat the machine?</p>
+    <p class="game-subtitle">You vs AI &mdash; can you beat the machine?</p>
     <div class="mode-select">
       <button class="mode-btn active" id="modeAI" onclick="setMode('ai')">vs AI</button>
       <button class="mode-btn" id="mode2P" onclick="setMode('2p')">2 Players</button>
     </div>
     <div class="scoreboard">
-      <div class="score-box x-box" id="scoreX">
+      <div class="score-box x-box">
         <div class="score-label" id="xLabel">You (X)</div>
         <div class="score-val" id="xScore">0</div>
       </div>
@@ -251,13 +250,13 @@
         <div class="score-label">Ties</div>
         <div class="score-val" id="tieScore">0</div>
       </div>
-      <div class="score-box o-box" id="scoreO">
+      <div class="score-box o-box">
         <div class="score-label" id="oLabel">AI (O)</div>
         <div class="score-val" id="oScore">0</div>
       </div>
     </div>
-    <div class="game-status" id="gameStatus">Your turn — place X</div>
-    <div class="board" id="board">
+    <div class="game-status" id="gameStatus">Your turn &mdash; place X</div>
+    <div class="board">
       <div class="cell" onclick="handleClick(0)" id="c0"></div>
       <div class="cell" onclick="handleClick(1)" id="c1"></div>
       <div class="cell" onclick="handleClick(2)" id="c2"></div>
@@ -280,12 +279,12 @@
   <div class="logo">PP<span>does</span>it</div>
   <p>
     Pelumi Fasakin &mdash; AI Automation Expert<br>
-    <a href="mailto:pofasakin@gmail.com">
+    <a id="footerEmail" href="#">
       <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-      pofasakin@gmail.com
+      pofasakin&#64;gmail.com
     </a>
-    &nbsp;·&nbsp;
-    <a href="https://x.com/ppdoesit" target="_blank">
+    &nbsp;&middot;&nbsp;
+    <a href="https://x.com/ppdoesit" target="_blank" rel="noopener">
       <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.738l7.73-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
       x.com/ppdoesit
     </a>
@@ -294,227 +293,274 @@
 </footer>
 
 <script>
-(function () {
+// Set mailto hrefs via JS so Cloudflare can't mangle them
+(function() {
+  var e = 'pofasakin' + '@' + 'gmail.com';
+  var m = 'mailto:' + e;
+  ['navEmail','heroEmail','footerEmail'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.href = m;
+  });
+})();
 
-  // ─── TICKER ────────────────────────────────────────────────────────────────
-  var facts = [
-    "GPT-4 was trained on an estimated 1 trillion tokens of text — more words than a human could read in 10,000 lifetimes.",
-    "The term 'Artificial Intelligence' was coined by John McCarthy in 1956 at the Dartmouth Conference.",
-    "By 2025, over 77% of businesses globally use AI in at least one business function.",
-    "AlphaFold by DeepMind solved the 50-year protein folding problem — unlocking breakthroughs in drug discovery.",
-    "AI automation is projected to contribute $15.7 trillion to the global economy by 2030.",
-    "The average enterprise using AI automation saves 3.2 hours per employee per day on repetitive tasks.",
-    "Large language models can now process and reason over hundreds of thousands of words in a single context window.",
-    "Nigeria is among Africa's fastest-growing tech hubs, with Lagos ranked top 3 in the continent for AI startups.",
-    "Workflow automation can reduce human error in data entry by up to 90%, boosting accuracy across operations.",
-    "ChatGPT reached 100 million users in just 2 months — the fastest app adoption in history at the time.",
-    "AI agents can now autonomously browse the web, write code, and execute multi-step tasks without human input.",
-    "The first industrial robot, Unimate, was deployed by General Motors in 1961 — automation has never stopped since.",
-    "Transformer architecture, invented in 2017, is the backbone of almost every modern AI language model.",
-    "Reinforcement learning from human feedback (RLHF) is the key technique that made AI assistants genuinely useful.",
-    "Africa's digital economy is expected to reach $712 billion by 2050, with AI automation at its core."
-  ];
+// ── TICKER ──────────────────────────────────────────────────────────────────
+var FACTS = [
+  "GPT-4 was trained on an estimated 1 trillion tokens of text — more words than a human could read in 10,000 lifetimes.",
+  "The term 'Artificial Intelligence' was coined by John McCarthy in 1956 at the Dartmouth Conference.",
+  "By 2025, over 77% of businesses globally use AI in at least one business function.",
+  "AlphaFold by DeepMind solved the 50-year protein folding problem — unlocking breakthroughs in drug discovery.",
+  "AI automation is projected to contribute $15.7 trillion to the global economy by 2030.",
+  "The average enterprise using AI automation saves 3.2 hours per employee per day on repetitive tasks.",
+  "Large language models can now process and reason over hundreds of thousands of words in a single context window.",
+  "Nigeria is among Africa's fastest-growing tech hubs, with Lagos ranked top 3 in the continent for AI startups.",
+  "Workflow automation can reduce human error in data entry by up to 90%, boosting accuracy across operations.",
+  "ChatGPT reached 100 million users in just 2 months — the fastest app adoption in history at the time.",
+  "AI agents can now autonomously browse the web, write code, and execute multi-step tasks without human input.",
+  "The first industrial robot, Unimate, was deployed by General Motors in 1961 — automation has never stopped since.",
+  "Transformer architecture, invented in 2017, is the backbone of almost every modern AI language model.",
+  "Reinforcement learning from human feedback (RLHF) is the key technique that made AI assistants genuinely useful.",
+  "Africa's digital economy is expected to reach $712 billion by 2050, with AI automation at its core."
+];
 
-  var factIdx = Math.floor(Math.random() * facts.length);
-  var tickerEl = document.getElementById('tickerText');
+var tickerEl = document.getElementById('tickerText');
+var factIdx  = Math.floor(Math.random() * FACTS.length);
 
-  // Show first fact immediately
-  tickerEl.textContent = facts[factIdx];
+tickerEl.textContent = FACTS[factIdx];
 
-  function rotateFact() {
-    // Slide out
-    tickerEl.classList.add('exit');
-    setTimeout(function () {
-      factIdx = (factIdx + 1) % facts.length;
-      tickerEl.textContent = facts[factIdx];
-      tickerEl.classList.remove('exit');
-      tickerEl.classList.add('enter');
-      // Force reflow so transition fires
-      void tickerEl.offsetWidth;
-      tickerEl.classList.remove('enter');
-    }, 420);
+setInterval(function() {
+  tickerEl.classList.add('exit');
+  setTimeout(function() {
+    factIdx = (factIdx + 1) % FACTS.length;
+    tickerEl.textContent = FACTS[factIdx];
+    tickerEl.classList.remove('exit');
+    tickerEl.classList.add('enter');
+    void tickerEl.offsetWidth; // force reflow
+    tickerEl.classList.remove('enter');
+  }, 420);
+}, 7000);
+
+// ── TIC TAC TOE ─────────────────────────────────────────────────────────────
+var board       = Array(9).fill(null);
+var moveHistory = [];          // [{idx, player}, ...]  oldest first
+var curPlayer   = 'X';
+var gameOver    = false;
+var aiThinking  = false;
+var scores      = { X:0, O:0, T:0 };
+var mode        = 'ai';
+var WINS        = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+
+function cell(i) { return document.getElementById('c' + i); }
+
+function setStatus(msg, cls) {
+  var el = document.getElementById('gameStatus');
+  el.textContent = msg;
+  el.className = 'game-status' + (cls ? ' ' + cls : '');
+}
+
+function updateStatus() {
+  if (gameOver) return;
+  if (mode === 'ai') {
+    setStatus(curPlayer === 'X' ? 'Your turn \u2014 place X' : 'AI is thinking\u2026');
+  } else {
+    setStatus('Player ' + curPlayer + '\u2019s turn');
+  }
+}
+
+function checkWin() {
+  for (var w = 0; w < WINS.length; w++) {
+    var a = WINS[w][0], b = WINS[w][1], c = WINS[w][2];
+    if (board[a] && board[a] === board[b] && board[b] === board[c])
+      return { winner: board[a], line: [a,b,c] };
+  }
+  return null;
+}
+
+function placeMove(i, player) {
+  board[i] = player;
+  moveHistory.push({ idx: i, player: player });
+  var c = cell(i);
+  c.innerHTML = '<span class="cell-symbol">' + player + '</span>';
+  c.classList.add(player.toLowerCase(), 'taken');
+
+  var result = checkWin();
+  if (result) {
+    endGame(result);
+  } else if (board.every(Boolean)) {
+    handleTie();
+  } else {
+    curPlayer = curPlayer === 'X' ? 'O' : 'X';
+    updateStatus();
+  }
+}
+
+function handleTie() {
+  scores.T++;
+  document.getElementById('tieScore').textContent = scores.T;
+  gameOver = true;
+  setStatus("It's a tie! Clearing random moves\u2026", 'tie-clearing');
+
+  // Pick 3 random moves — guaranteed at least 1 X and 1 O
+  var pool     = moveHistory.slice();   // copy so we can pull from it
+  var xPool    = pool.filter(function(m){ return m.player === 'X'; });
+  var oPool    = pool.filter(function(m){ return m.player === 'O'; });
+
+  // Fisher-Yates shuffle helper
+  function shuffle(arr) {
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+    }
+    return arr;
   }
 
-  setInterval(rotateFact, 7000);
+  shuffle(xPool); shuffle(oPool); shuffle(pool);
 
-
-  // ─── TIC TAC TOE ──────────────────────────────────────────────────────────
-  var board = Array(9).fill(null);
-  var moveHistory = [];   // ordered list of {idx, player}
-  var currentPlayer = 'X';
-  var gameOver = false;
-  var aiThinking = false;
-  var scores = { X: 0, O: 0, T: 0 };
-  var mode = 'ai';
-
-  var WINS = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-
-  // Exposed globals
-  window.setMode = function (m) {
-    mode = m;
-    document.getElementById('modeAI').classList.toggle('active', m === 'ai');
-    document.getElementById('mode2P').classList.toggle('active', m === '2p');
-    document.getElementById('oLabel').textContent = m === 'ai' ? 'AI (O)' : 'Player O';
-    document.getElementById('xLabel').textContent = m === 'ai' ? 'You (X)' : 'Player X';
-    window.resetGame();
-  };
-
-  window.handleClick = function (i) {
-    if (gameOver || board[i] || aiThinking) return;
-    if (mode === 'ai' && currentPlayer === 'O') return;
-    placeMove(i, currentPlayer);
-    if (!gameOver && mode === 'ai' && currentPlayer === 'O') {
-      aiThinking = true;
-      setStatus('AI is thinking...');
-      setTimeout(function () { aiMove(); aiThinking = false; }, 450);
+  var toRemove = [];
+  toRemove.push(xPool[0]);   // 1 random X
+  toRemove.push(oPool[0]);   // 1 random O
+  // 3rd: any remaining move not already chosen
+  for (var k = 0; k < pool.length; k++) {
+    if (pool[k] !== xPool[0] && pool[k] !== oPool[0]) {
+      toRemove.push(pool[k]);
+      break;
     }
-  };
+  }
 
-  window.resetGame = function () {
-    board = Array(9).fill(null);
-    moveHistory = [];
-    currentPlayer = 'X';
-    gameOver = false;
-    aiThinking = false;
-    for (var i = 0; i < 9; i++) {
-      var c = document.getElementById('c' + i);
+  // Remove chosen entries from history
+  toRemove.forEach(function(m) {
+    var idx = moveHistory.indexOf(m);
+    if (idx > -1) moveHistory.splice(idx, 1);
+  });
+
+  // Flash cells being removed
+  toRemove.forEach(function(m) { cell(m.idx).classList.add('vanishing'); });
+
+  setTimeout(function() {
+    toRemove.forEach(function(m) {
+      board[m.idx] = null;
+      var c = cell(m.idx);
       c.innerHTML = '';
       c.className = 'cell';
-    }
+    });
+
+    gameOver  = false;
+    curPlayer = curPlayer === 'X' ? 'O' : 'X';
     updateStatus();
-  };
 
-  window.resetScore = function () {
-    scores = { X: 0, O: 0, T: 0 };
-    document.getElementById('xScore').textContent = 0;
-    document.getElementById('oScore').textContent = 0;
-    document.getElementById('tieScore').textContent = 0;
-    window.resetGame();
-  };
-
-  function placeMove(i, player) {
-    board[i] = player;
-    moveHistory.push({ idx: i, player: player });
-
-    var cell = document.getElementById('c' + i);
-    cell.innerHTML = '<span class="cell-symbol">' + player + '</span>';
-    cell.classList.add(player.toLowerCase(), 'taken');
-
-    var result = checkWin();
-    if (result) {
-      endGame(result);
-    } else if (board.every(Boolean)) {
-      handleTie();
-    } else {
-      currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-      updateStatus();
+    if (!gameOver && mode === 'ai' && curPlayer === 'O') {
+      aiThinking = true;
+      setStatus('AI is thinking\u2026');
+      setTimeout(function() { aiMove(); aiThinking = false; }, 450);
     }
+  }, 800);
+}
+
+function endGame(result) {
+  gameOver = true;
+  result.line.forEach(function(i) { cell(i).classList.add('winner'); });
+  scores[result.winner]++;
+  document.getElementById(result.winner === 'X' ? 'xScore' : 'oScore').textContent = scores[result.winner];
+  if (mode === 'ai') {
+    setStatus(result.winner === 'X' ? '🎉 You won! Impressive.' : '🤖 AI wins. Try again?',
+              result.winner === 'X' ? 'win' : 'lose');
+  } else {
+    setStatus('Player ' + result.winner + ' wins!', 'win');
   }
+}
 
-  // ── TIE HANDLER — removes the 3 oldest moves so play continues ──
-  function handleTie() {
-    scores.T++;
-    document.getElementById('tieScore').textContent = scores.T;
+function aiMove() {
+  if (gameOver) return;
+  var move = getBestMove();
+  if (move !== null && move !== undefined) placeMove(move, 'O');
+}
 
-    // Lock board during animation
-    gameOver = true;
-    setStatus("It's a tie! Clearing old moves...", 'tie-clearing');
-
-    // Grab the 3 oldest moves from history
-    var toRemove = moveHistory.splice(0, 3);
-
-    // Flash them to signal they're being removed
-    toRemove.forEach(function (m) {
-      document.getElementById('c' + m.idx).classList.add('vanishing');
-    });
-
-    setTimeout(function () {
-      // Wipe those cells
-      toRemove.forEach(function (m) {
-        board[m.idx] = null;
-        var cell = document.getElementById('c' + m.idx);
-        cell.innerHTML = '';
-        cell.className = 'cell';
-      });
-
-      // Resume — swap player so the one who DIDN'T move last goes next
-      gameOver = false;
-      currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-      updateStatus();
-
-      // If it's now AI's turn, trigger it
-      if (!gameOver && mode === 'ai' && currentPlayer === 'O') {
-        aiThinking = true;
-        setStatus('AI is thinking...');
-        setTimeout(function () { aiMove(); aiThinking = false; }, 450);
-      }
-    }, 750);
+// Minimax — plays perfectly. Cannot be beaten, only tied with perfect play.
+function minimax(b, isMaximising) {
+  for (var w = 0; w < WINS.length; w++) {
+    var a = WINS[w][0], bw = WINS[w][1], c = WINS[w][2];
+    if (b[a] && b[a] === b[bw] && b[bw] === b[c])
+      return b[a] === 'O' ? 10 : -10;
   }
+  var empty = [];
+  for (var j = 0; j < 9; j++) { if (!b[j]) empty.push(j); }
+  if (empty.length === 0) return 0;
 
-  function checkWin() {
-    for (var w = 0; w < WINS.length; w++) {
-      var a = WINS[w][0], b = WINS[w][1], c = WINS[w][2];
-      if (board[a] && board[a] === board[b] && board[b] === board[c])
-        return { winner: board[a], line: [a, b, c] };
+  if (isMaximising) {
+    var best = -Infinity;
+    for (var e = 0; e < empty.length; e++) {
+      b[empty[e]] = 'O';
+      best = Math.max(best, minimax(b, false));
+      b[empty[e]] = null;
     }
-    return null;
-  }
-
-  function endGame(result) {
-    gameOver = true;
-    result.line.forEach(function (i) {
-      document.getElementById('c' + i).classList.add('winner');
-    });
-    scores[result.winner]++;
-    document.getElementById(result.winner === 'X' ? 'xScore' : 'oScore').textContent = scores[result.winner];
-    if (mode === 'ai') {
-      setStatus(result.winner === 'X' ? '🎉 You won! Impressive.' : '🤖 AI wins. Try again?',
-                result.winner === 'X' ? 'win' : 'lose');
-    } else {
-      setStatus('Player ' + result.winner + ' wins!', 'win');
+    return best;
+  } else {
+    var worst = Infinity;
+    for (var f = 0; f < empty.length; f++) {
+      b[empty[f]] = 'X';
+      worst = Math.min(worst, minimax(b, true));
+      b[empty[f]] = null;
     }
+    return worst;
   }
+}
 
-  function updateStatus() {
-    if (gameOver) return;
-    if (mode === 'ai') {
-      setStatus(currentPlayer === 'X' ? 'Your turn — place X' : 'AI is thinking...');
-    } else {
-      setStatus('Player ' + currentPlayer + "'s turn");
-    }
+function getBestMove() {
+  var bestScore = -Infinity, bestMove = null;
+  // Shuffle so equal-value moves vary each game
+  var candidates = [];
+  for (var i = 0; i < 9; i++) { if (!board[i]) candidates.push(i); }
+  candidates.sort(function() { return Math.random() - 0.5; });
+  for (var k = 0; k < candidates.length; k++) {
+    board[candidates[k]] = 'O';
+    var score = minimax(board, false);
+    board[candidates[k]] = null;
+    if (score > bestScore) { bestScore = score; bestMove = candidates[k]; }
   }
+  return bestMove;
+}
 
-  function setStatus(msg, cls) {
-    var st = document.getElementById('gameStatus');
-    st.textContent = msg;
-    st.className = 'game-status' + (cls ? ' ' + cls : '');
+// ── PUBLIC ───────────────────────────────────────────────────────────────────
+function setMode(m) {
+  mode = m;
+  document.getElementById('modeAI').classList.toggle('active', m === 'ai');
+  document.getElementById('mode2P').classList.toggle('active', m === '2p');
+  document.getElementById('oLabel').textContent = m === 'ai' ? 'AI (O)' : 'Player O';
+  document.getElementById('xLabel').textContent = m === 'ai' ? 'You (X)' : 'Player X';
+  resetGame();
+}
+
+function handleClick(i) {
+  if (gameOver || board[i] || aiThinking) return;
+  if (mode === 'ai' && curPlayer === 'O') return;
+  placeMove(i, curPlayer);
+  if (!gameOver && mode === 'ai' && curPlayer === 'O') {
+    aiThinking = true;
+    setStatus('AI is thinking\u2026');
+    setTimeout(function() { aiMove(); aiThinking = false; }, 450);
   }
+}
 
-  // ── AI LOGIC ──
-  function aiMove() {
-    if (gameOver) return;
-    var move = getBestMove();
-    if (move !== null && move !== undefined) placeMove(move, 'O');
+function resetGame() {
+  board = Array(9).fill(null);
+  moveHistory = [];
+  curPlayer = 'X';
+  gameOver = false;
+  aiThinking = false;
+  for (var i = 0; i < 9; i++) {
+    var c = cell(i);
+    c.innerHTML = '';
+    c.className = 'cell';
   }
+  updateStatus();
+}
 
-  function getBestMove() {
-    var i, empties;
-    // Win
-    for (i = 0; i < 9; i++) { if (!board[i]) { board[i]='O'; if (checkWin()) { board[i]=null; return i; } board[i]=null; } }
-    // Block
-    for (i = 0; i < 9; i++) { if (!board[i]) { board[i]='X'; if (checkWin()) { board[i]=null; return i; } board[i]=null; } }
-    // Center
-    if (!board[4]) return 4;
-    // Corners
-    var corners = [0,2,6,8].filter(function(j){ return !board[j]; });
-    if (corners.length) return corners[Math.floor(Math.random() * corners.length)];
-    // Edges
-    empties = [1,3,5,7].filter(function(j){ return !board[j]; });
-    if (empties.length) return empties[0];
-    return null;
-  }
-
-})();
+function resetScore() {
+  scores = { X:0, O:0, T:0 };
+  ['xScore','oScore','tieScore'].forEach(function(id) {
+    document.getElementById(id).textContent = 0;
+  });
+  resetGame();
+}
 </script>
 </body>
 </html>
