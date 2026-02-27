@@ -23,6 +23,8 @@
     background-image: linear-gradient(rgba(0,245,196,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,245,196,0.03) 1px, transparent 1px);
     background-size: 60px 60px; pointer-events: none; z-index: 0;
   }
+
+  /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center;
@@ -30,62 +32,49 @@
   }
   .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; color: var(--accent); letter-spacing: -1px; }
   .logo span { color: var(--accent2); }
-  nav a { color: var(--muted); text-decoration: none; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; transition: color 0.3s; }
+  .nav-links { display: flex; align-items: center; gap: 1.5rem; }
+  nav a { color: var(--muted); text-decoration: none; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; transition: color 0.3s; display: inline-flex; align-items: center; gap: 5px; }
   nav a:hover { color: var(--accent); }
 
+  /* TICKER */
   .ticker-bar {
     position: fixed; top: 73px; left: 0; right: 0; z-index: 99;
     background: rgba(0,245,196,0.04); border-bottom: 1px solid rgba(0,245,196,0.1);
-    padding: 0.65rem 4rem; display: flex; align-items: flex-start; gap: 1.2rem; backdrop-filter: blur(12px);
+    padding: 0.65rem 4rem; display: flex; align-items: center; gap: 1.2rem; backdrop-filter: blur(12px);
   }
-  .ticker-tag {
-    font-size: 0.55rem; letter-spacing: 2.5px; text-transform: uppercase;
-    color: var(--accent); border: 1px solid var(--accent); padding: 0.2rem 0.6rem;
-    flex-shrink: 0; opacity: 0.85; margin-top: 0.15rem; white-space: nowrap;
-  }
-  .ticker-divider { width: 1px; height: 14px; background: var(--border); flex-shrink: 0; margin-top: 0.3rem; }
-  .ticker-text-wrap { flex: 1; min-width: 0; }
-  .ticker-text {
-    font-size: 0.72rem; color: var(--muted); letter-spacing: 0.3px; line-height: 1.65;
-    white-space: normal; word-wrap: break-word; display: block;
-    transition: opacity 0.5s ease, transform 0.5s ease; opacity: 1; transform: translateY(0);
-  }
+  .ticker-tag { font-size: 0.55rem; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.2rem 0.6rem; flex-shrink: 0; opacity: 0.85; white-space: nowrap; }
+  .ticker-divider { width: 1px; height: 14px; background: var(--border); flex-shrink: 0; }
+  .ticker-text-wrap { flex: 1; min-width: 0; overflow: hidden; }
+  .ticker-text { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.3px; line-height: 1.5; display: block; transition: opacity 0.4s ease, transform 0.4s ease; opacity: 1; transform: translateY(0); }
   .ticker-text.exit { opacity: 0; transform: translateY(-8px); }
   .ticker-text.enter { opacity: 0; transform: translateY(8px); }
-  .ticker-dot {
-    width: 5px; height: 5px; border-radius: 50%; background: var(--accent);
-    flex-shrink: 0; opacity: 0.5; margin-top: 0.45rem; animation: blink 2s ease-in-out infinite;
-  }
-  @keyframes blink { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+  .ticker-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; opacity: 0.6; animation: blink 2s ease-in-out infinite; }
+  @keyframes blink { 0%,100%{opacity:0.4} 50%{opacity:1} }
 
+  /* HERO */
   .hero { min-height: 100vh; display: flex; align-items: center; position: relative; padding: 11rem 4rem 4rem; z-index: 1; }
   .hero-content { max-width: 900px; }
-  .tag {
-    display: inline-block; font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase;
-    color: var(--accent); border: 1px solid var(--accent); padding: 0.4rem 1rem;
-    margin-bottom: 2rem; animation: fadeUp 0.6s ease both;
-  }
-  h1 {
-    font-family: 'Syne', sans-serif; font-size: clamp(3.5rem, 9vw, 7rem); font-weight: 800;
-    line-height: 0.95; letter-spacing: -3px; animation: fadeUp 0.6s 0.1s ease both; margin-bottom: 1.5rem;
-  }
+  .tag { display: inline-block; font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.4rem 1rem; margin-bottom: 2rem; animation: fadeUp 0.6s ease both; }
+  h1 { font-family: 'Syne', sans-serif; font-size: clamp(3.5rem, 9vw, 7rem); font-weight: 800; line-height: 0.95; letter-spacing: -3px; animation: fadeUp 0.6s 0.1s ease both; margin-bottom: 1.5rem; }
   h1 .line2 { display: block; color: transparent; -webkit-text-stroke: 1px var(--accent); }
   .hero-desc { font-size: 1rem; color: var(--muted); max-width: 480px; line-height: 1.8; animation: fadeUp 0.6s 0.2s ease both; margin-bottom: 3rem; }
   .cta-row { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.6s 0.3s ease both; }
-  .btn { padding: 0.85rem 2rem; font-family: 'DM Mono', monospace; font-size: 0.8rem; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: all 0.3s; border: none; display: inline-block; }
+  .btn { padding: 0.85rem 2rem; font-family: 'DM Mono', monospace; font-size: 0.8rem; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: all 0.3s; border: none; display: inline-flex; align-items: center; gap: 7px; }
   .btn-primary { background: var(--accent); color: var(--bg); font-weight: 500; }
   .btn-primary:hover { background: #00c9a0; transform: translateY(-2px); }
   .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
   .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-  .float-el { position: absolute; font-size: 0.6rem; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; opacity: 0.4; }
+  .float-el { position: absolute; font-size: 0.6rem; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; opacity: 0.4; pointer-events: none; }
   .float-el:nth-child(2) { top: 20%; right: 8%; animation: drift 8s ease-in-out infinite; }
   .float-el:nth-child(3) { top: 50%; right: 12%; animation: drift 10s ease-in-out infinite reverse; }
   .float-el:nth-child(4) { bottom: 20%; right: 5%; animation: drift 7s ease-in-out infinite; }
 
+  /* STATS */
   .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; padding: 4rem; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); position: relative; z-index: 1; }
   .stat-num { font-family: 'Syne', sans-serif; font-size: 3rem; font-weight: 800; color: var(--accent); line-height: 1; }
   .stat-label { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 0.5rem; }
 
+  /* SERVICES */
   section { padding: 6rem 4rem; position: relative; z-index: 1; }
   .section-label { font-size: 0.65rem; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 3rem; }
   .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
@@ -95,29 +84,31 @@
   .service-title { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem; color: var(--text); }
   .service-desc { font-size: 0.8rem; line-height: 1.8; color: var(--muted); }
 
+  /* GAME */
   .game-section { padding: 6rem 4rem; position: relative; z-index: 1; }
   .game-container { max-width: 500px; margin: 0 auto; }
   .game-title { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; text-align: center; margin-bottom: 0.5rem; }
   .game-subtitle { text-align: center; font-size: 0.75rem; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2.5rem; }
   .scoreboard { display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; }
   .score-box { text-align: center; padding: 1rem 1.5rem; background: var(--surface); border: 1px solid var(--border); min-width: 90px; transition: border-color 0.3s; }
-  .score-box.active { border-color: var(--accent); }
   .score-label { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
   .score-val { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--text); }
   .score-box.x-box .score-val { color: var(--accent); }
   .score-box.o-box .score-val { color: var(--accent2); }
-  .game-status { text-align: center; font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; min-height: 1.2em; letter-spacing: 1px; }
+  .game-status { text-align: center; font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; min-height: 1.2em; letter-spacing: 1px; transition: color 0.3s; }
   .game-status.win { color: var(--accent); font-weight: 500; }
   .game-status.lose { color: var(--accent2); }
+  .game-status.tie-clearing { color: #f5a623; }
   .board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; background: var(--border); border: 1px solid var(--border); padding: 6px; margin-bottom: 1.5rem; }
-  .cell { background: var(--bg); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; cursor: pointer; transition: background 0.2s; position: relative; overflow: hidden; user-select: none; }
+  .cell { background: var(--bg); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; cursor: pointer; transition: background 0.2s, opacity 0.3s; position: relative; overflow: hidden; user-select: none; }
   .cell:hover:not(.taken) { background: var(--surface); }
   .cell.taken { cursor: not-allowed; }
   .cell.x { color: var(--accent); }
   .cell.o { color: var(--accent2); }
   .cell.winner { background: rgba(0,245,196,0.1); animation: pulse 0.5s ease; }
   .cell.o.winner { background: rgba(255,77,109,0.1); }
-  .cell-symbol { animation: popIn 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+  .cell.vanishing { opacity: 0.15; transition: opacity 0.4s ease; }
+  .cell-symbol { animation: popIn 0.2s cubic-bezier(0.34,1.56,0.64,1) both; }
   .game-btns { display: flex; gap: 1rem; justify-content: center; }
   .game-btn { padding: 0.7rem 1.5rem; font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; border: 1px solid var(--border); background: transparent; color: var(--text); cursor: pointer; transition: all 0.3s; }
   .game-btn:hover { border-color: var(--accent); color: var(--accent); }
@@ -125,23 +116,27 @@
   .mode-btn { padding: 0.5rem 1rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; transition: all 0.2s; }
   .mode-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(0,245,196,0.05); }
 
+  /* FOOTER */
   footer { padding: 3rem 4rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
   footer .logo { font-size: 1.2rem; }
-  footer p { font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; }
-  footer a { color: var(--accent); text-decoration: none; }
+  footer p { font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; line-height: 1.9; }
+  footer a { color: var(--accent); text-decoration: none; display: inline-flex; align-items: center; gap: 4px; vertical-align: middle; }
 
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes drift { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-  @keyframes popIn { from { transform: scale(0) rotate(-10deg); opacity: 0; } to { transform: scale(1) rotate(0); opacity: 1; } }
-  @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+  /* ANIMATIONS */
+  @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes drift { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
+  @keyframes popIn { from{transform:scale(0) rotate(-10deg);opacity:0} to{transform:scale(1) rotate(0);opacity:1} }
+  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
 
+  /* RESPONSIVE */
   @media (max-width: 768px) {
     nav { padding: 1.2rem 2rem; }
+    .nav-links { gap: 0.8rem; }
+    nav a { font-size: 0.65rem; letter-spacing: 1px; }
     .ticker-bar { top: 62px; padding: 0.6rem 1.2rem; gap: 0.8rem; }
     .ticker-text { font-size: 0.67rem; }
     .hero { padding: 9rem 2rem 3rem; }
-    section { padding: 4rem 2rem; }
-    .game-section { padding: 4rem 2rem; }
+    section, .game-section { padding: 4rem 2rem; }
     .stats { padding: 2.5rem 1.5rem; gap: 1rem; }
     .stat-num { font-size: 2rem; }
     footer { padding: 2rem; flex-direction: column; gap: 1rem; text-align: center; }
@@ -150,27 +145,42 @@
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <div class="logo">PP<span>does</span>it</div>
-  <a href="mailto:pofasakin@gmail.com">pofasakin@gmail.com ↗</a>
+  <div class="nav-links">
+    <a href="mailto:pofasakin@gmail.com">
+      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      pofasakin@gmail.com ↗
+    </a>
+    <a href="https://x.com/ppdoesit" target="_blank">
+      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.738l7.73-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      @ppdoesit ↗
+    </a>
+  </div>
 </nav>
 
+<!-- TICKER -->
 <div class="ticker-bar">
   <span class="ticker-tag">Did You Know</span>
   <div class="ticker-divider"></div>
   <div class="ticker-text-wrap">
-    <span class="ticker-text" id="tickerText"></span>
+    <span class="ticker-text" id="tickerText">Loading fact...</span>
   </div>
   <div class="ticker-dot"></div>
 </div>
 
+<!-- HERO -->
 <section class="hero">
   <div class="hero-content">
     <div class="tag">// AI Automation Expert</div>
     <h1>Pelumi<br><span class="line2">Fasakin.</span></h1>
     <p class="hero-desc">I build intelligent systems that make businesses move faster. From workflow automation to custom AI pipelines — I turn repetitive processes into zero-effort outputs.</p>
     <div class="cta-row">
-      <a href="mailto:pofasakin@gmail.com" class="btn btn-primary">Get In Touch</a>
+      <a href="mailto:pofasakin@gmail.com" class="btn btn-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        Get In Touch
+      </a>
       <a href="#services" class="btn btn-outline">What I Do</a>
     </div>
   </div>
@@ -179,6 +189,7 @@
   <div class="float-el">pp_does_it: true</div>
 </section>
 
+<!-- STATS -->
 <div class="stats">
   <div>
     <div class="stat-num">&#x221e;</div>
@@ -194,6 +205,7 @@
   </div>
 </div>
 
+<!-- SERVICES -->
 <section id="services">
   <div class="section-label">// What PP Does</div>
   <div class="services-grid">
@@ -220,6 +232,7 @@
   </div>
 </section>
 
+<!-- TIC TAC TOE -->
 <section class="game-section" id="game">
   <div class="section-label" style="text-align:center;">// Take a Break</div>
   <div class="game-container">
@@ -262,31 +275,31 @@
   </div>
 </section>
 
-<audio id="bgAudio" loop preload="none"></audio>
-
+<!-- FOOTER -->
 <footer>
   <div class="logo">PP<span>does</span>it</div>
-  <p>Pelumi Fasakin &mdash; AI Automation Expert<br>
-    <a href="mailto:pofasakin@gmail.com">pofasakin@gmail.com</a>
+  <p>
+    Pelumi Fasakin &mdash; AI Automation Expert<br>
+    <a href="mailto:pofasakin@gmail.com">
+      <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      pofasakin@gmail.com
+    </a>
+    &nbsp;·&nbsp;
+    <a href="https://x.com/ppdoesit" target="_blank">
+      <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.738l7.73-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      x.com/ppdoesit
+    </a>
   </p>
   <p style="font-size:0.65rem;">&#169; 2025 PPdoesit. All rights automated.</p>
 </footer>
 
 <script>
-(function() {
-  // ── SCROLL TO TOP ──────────────────────────────────────────────────────────
-  if (history.scrollRestoration) history.scrollRestoration = 'manual';
-  if (window.location.hash) history.replaceState(null, '', window.location.pathname);
+(function () {
 
-  function goTop() { window.scrollTo(0, 0); }
-  goTop();
-  document.addEventListener('DOMContentLoaded', goTop);
-  window.addEventListener('load', goTop);
-
-  // ── TICKER ─────────────────────────────────────────────────────────────────
+  // ─── TICKER ────────────────────────────────────────────────────────────────
   var facts = [
     "GPT-4 was trained on an estimated 1 trillion tokens of text — more words than a human could read in 10,000 lifetimes.",
-    "The term Artificial Intelligence was coined by John McCarthy in 1956 at the Dartmouth Conference.",
+    "The term 'Artificial Intelligence' was coined by John McCarthy in 1956 at the Dartmouth Conference.",
     "By 2025, over 77% of businesses globally use AI in at least one business function.",
     "AlphaFold by DeepMind solved the 50-year protein folding problem — unlocking breakthroughs in drug discovery.",
     "AI automation is projected to contribute $15.7 trillion to the global economy by 2030.",
@@ -305,59 +318,39 @@
   var factIdx = Math.floor(Math.random() * facts.length);
   var tickerEl = document.getElementById('tickerText');
 
-  function setFact(text) {
-    tickerEl.textContent = text;
-  }
+  // Show first fact immediately
+  tickerEl.textContent = facts[factIdx];
 
   function rotateFact() {
+    // Slide out
     tickerEl.classList.add('exit');
-    setTimeout(function() {
+    setTimeout(function () {
       factIdx = (factIdx + 1) % facts.length;
+      tickerEl.textContent = facts[factIdx];
       tickerEl.classList.remove('exit');
       tickerEl.classList.add('enter');
-      tickerEl.textContent = facts[factIdx];
-      void tickerEl.offsetHeight;
+      // Force reflow so transition fires
+      void tickerEl.offsetWidth;
       tickerEl.classList.remove('enter');
-    }, 500);
+    }, 420);
   }
 
-  document.addEventListener('DOMContentLoaded', function() {
-    setFact(facts[factIdx]);
-    setInterval(rotateFact, 7000);
-  });
+  setInterval(rotateFact, 7000);
 
-  // ── BACKGROUND MUSIC ───────────────────────────────────────────────────────
-  var bgAudio = document.getElementById('bgAudio');
-  var musicGoing = false;
 
-  function startMusic() {
-    if (musicGoing) return;
-    musicGoing = true;
-    bgAudio.src = 'https://archive.org/download/Kevin_MacLeod_-_Cipher/Kevin_MacLeod_-_Cipher.mp3';
-    bgAudio.volume = 0.4;
-    bgAudio.loop = true;
-    bgAudio.play().catch(function() { musicGoing = false; });
-  }
+  // ─── TIC TAC TOE ──────────────────────────────────────────────────────────
+  var board = Array(9).fill(null);
+  var moveHistory = [];   // ordered list of {idx, player}
+  var currentPlayer = 'X';
+  var gameOver = false;
+  var aiThinking = false;
+  var scores = { X: 0, O: 0, T: 0 };
+  var mode = 'ai';
 
-  ['click', 'keydown', 'scroll', 'touchstart'].forEach(function(e) {
-    document.addEventListener(e, startMusic, { once: true, passive: true });
-  });
+  var WINS = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
 
-  // ── TIC TAC TOE ────────────────────────────────────────────────────────────
-  var board, currentPlayer, gameOver, aiThinking, scores, mode;
-  var wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-
-  function initGame() {
-    board = [null,null,null,null,null,null,null,null,null];
-    currentPlayer = 'X';
-    gameOver = false;
-    aiThinking = false;
-    scores = { X: 0, O: 0, T: 0 };
-    mode = 'ai';
-  }
-  initGame();
-
-  window.setMode = function(m) {
+  // Exposed globals
+  window.setMode = function (m) {
     mode = m;
     document.getElementById('modeAI').classList.toggle('active', m === 'ai');
     document.getElementById('mode2P').classList.toggle('active', m === '2p');
@@ -366,115 +359,160 @@
     window.resetGame();
   };
 
-  window.handleClick = function(i) {
+  window.handleClick = function (i) {
     if (gameOver || board[i] || aiThinking) return;
     if (mode === 'ai' && currentPlayer === 'O') return;
     placeMove(i, currentPlayer);
     if (!gameOver && mode === 'ai' && currentPlayer === 'O') {
       aiThinking = true;
-      updateStatus();
-      setTimeout(function() { aiMove(); aiThinking = false; }, 450);
+      setStatus('AI is thinking...');
+      setTimeout(function () { aiMove(); aiThinking = false; }, 450);
     }
   };
 
-  function placeMove(i, player) {
-    board[i] = player;
-    var cell = document.getElementById('c' + i);
-    cell.innerHTML = '<span class="cell-symbol">' + player + '</span>';
-    cell.classList.add(player.toLowerCase(), 'taken');
-    var result = checkWin();
-    if (result) {
-      endGame(result);
-    } else if (board.every(function(v) { return v !== null; })) {
-      endGame('TIE');
-    } else {
-      currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-      updateStatus();
-    }
-  }
-
-  function checkWin() {
-    for (var w = 0; w < wins.length; w++) {
-      var a = wins[w][0], b = wins[w][1], c = wins[w][2];
-      if (board[a] && board[a] === board[b] && board[b] === board[c]) {
-        return { winner: board[a], line: [a, b, c] };
-      }
-    }
-    return null;
-  }
-
-  function endGame(result) {
-    gameOver = true;
-    var st = document.getElementById('gameStatus');
-    if (result === 'TIE') {
-      scores.T++;
-      document.getElementById('tieScore').textContent = scores.T;
-      st.textContent = "It's a tie — well played";
-      st.className = 'game-status';
-    } else {
-      result.line.forEach(function(i) {
-        document.getElementById('c' + i).classList.add('winner');
-      });
-      scores[result.winner]++;
-      document.getElementById(result.winner === 'X' ? 'xScore' : 'oScore').textContent = scores[result.winner];
-      if (mode === 'ai') {
-        st.textContent = result.winner === 'X' ? 'You won! Impressive.' : 'AI wins. Try again?';
-        st.className = 'game-status ' + (result.winner === 'X' ? 'win' : 'lose');
-      } else {
-        st.textContent = 'Player ' + result.winner + ' wins!';
-        st.className = 'game-status win';
-      }
-    }
-  }
-
-  function updateStatus() {
-    if (gameOver) return;
-    var st = document.getElementById('gameStatus');
-    if (mode === 'ai') {
-      st.textContent = currentPlayer === 'X' ? 'Your turn — place X' : 'AI is thinking...';
-    } else {
-      st.textContent = 'Player ' + currentPlayer + "'s turn";
-    }
-  }
-
-  function aiMove() {
-    if (gameOver) return;
-    var move = getBestMove();
-    if (move !== null) placeMove(move, 'O');
-  }
-
-  function getBestMove() {
-    var i;
-    for (i = 0; i < 9; i++) { if (!board[i]) { board[i]='O'; if (checkWin()) { board[i]=null; return i; } board[i]=null; } }
-    for (i = 0; i < 9; i++) { if (!board[i]) { board[i]='X'; if (checkWin()) { board[i]=null; return i; } board[i]=null; } }
-    if (!board[4]) return 4;
-    var corners = [0,2,6,8].filter(function(i) { return !board[i]; });
-    if (corners.length) return corners[Math.floor(Math.random() * corners.length)];
-    var edges = [1,3,5,7].filter(function(i) { return !board[i]; });
-    if (edges.length) return edges[0];
-    return null;
-  }
-
-  window.resetGame = function() {
-    board = [null,null,null,null,null,null,null,null,null];
+  window.resetGame = function () {
+    board = Array(9).fill(null);
+    moveHistory = [];
     currentPlayer = 'X';
     gameOver = false;
     aiThinking = false;
     for (var i = 0; i < 9; i++) {
-      var cell = document.getElementById('c' + i);
-      cell.innerHTML = '';
-      cell.className = 'cell';
+      var c = document.getElementById('c' + i);
+      c.innerHTML = '';
+      c.className = 'cell';
     }
     updateStatus();
   };
 
-  window.resetScore = function() {
+  window.resetScore = function () {
     scores = { X: 0, O: 0, T: 0 };
     document.getElementById('xScore').textContent = 0;
     document.getElementById('oScore').textContent = 0;
     document.getElementById('tieScore').textContent = 0;
     window.resetGame();
   };
+
+  function placeMove(i, player) {
+    board[i] = player;
+    moveHistory.push({ idx: i, player: player });
+
+    var cell = document.getElementById('c' + i);
+    cell.innerHTML = '<span class="cell-symbol">' + player + '</span>';
+    cell.classList.add(player.toLowerCase(), 'taken');
+
+    var result = checkWin();
+    if (result) {
+      endGame(result);
+    } else if (board.every(Boolean)) {
+      handleTie();
+    } else {
+      currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+      updateStatus();
+    }
+  }
+
+  // ── TIE HANDLER — removes the 3 oldest moves so play continues ──
+  function handleTie() {
+    scores.T++;
+    document.getElementById('tieScore').textContent = scores.T;
+
+    // Lock board during animation
+    gameOver = true;
+    setStatus("It's a tie! Clearing old moves...", 'tie-clearing');
+
+    // Grab the 3 oldest moves from history
+    var toRemove = moveHistory.splice(0, 3);
+
+    // Flash them to signal they're being removed
+    toRemove.forEach(function (m) {
+      document.getElementById('c' + m.idx).classList.add('vanishing');
+    });
+
+    setTimeout(function () {
+      // Wipe those cells
+      toRemove.forEach(function (m) {
+        board[m.idx] = null;
+        var cell = document.getElementById('c' + m.idx);
+        cell.innerHTML = '';
+        cell.className = 'cell';
+      });
+
+      // Resume — swap player so the one who DIDN'T move last goes next
+      gameOver = false;
+      currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+      updateStatus();
+
+      // If it's now AI's turn, trigger it
+      if (!gameOver && mode === 'ai' && currentPlayer === 'O') {
+        aiThinking = true;
+        setStatus('AI is thinking...');
+        setTimeout(function () { aiMove(); aiThinking = false; }, 450);
+      }
+    }, 750);
+  }
+
+  function checkWin() {
+    for (var w = 0; w < WINS.length; w++) {
+      var a = WINS[w][0], b = WINS[w][1], c = WINS[w][2];
+      if (board[a] && board[a] === board[b] && board[b] === board[c])
+        return { winner: board[a], line: [a, b, c] };
+    }
+    return null;
+  }
+
+  function endGame(result) {
+    gameOver = true;
+    result.line.forEach(function (i) {
+      document.getElementById('c' + i).classList.add('winner');
+    });
+    scores[result.winner]++;
+    document.getElementById(result.winner === 'X' ? 'xScore' : 'oScore').textContent = scores[result.winner];
+    if (mode === 'ai') {
+      setStatus(result.winner === 'X' ? '🎉 You won! Impressive.' : '🤖 AI wins. Try again?',
+                result.winner === 'X' ? 'win' : 'lose');
+    } else {
+      setStatus('Player ' + result.winner + ' wins!', 'win');
+    }
+  }
+
+  function updateStatus() {
+    if (gameOver) return;
+    if (mode === 'ai') {
+      setStatus(currentPlayer === 'X' ? 'Your turn — place X' : 'AI is thinking...');
+    } else {
+      setStatus('Player ' + currentPlayer + "'s turn");
+    }
+  }
+
+  function setStatus(msg, cls) {
+    var st = document.getElementById('gameStatus');
+    st.textContent = msg;
+    st.className = 'game-status' + (cls ? ' ' + cls : '');
+  }
+
+  // ── AI LOGIC ──
+  function aiMove() {
+    if (gameOver) return;
+    var move = getBestMove();
+    if (move !== null && move !== undefined) placeMove(move, 'O');
+  }
+
+  function getBestMove() {
+    var i, empties;
+    // Win
+    for (i = 0; i < 9; i++) { if (!board[i]) { board[i]='O'; if (checkWin()) { board[i]=null; return i; } board[i]=null; } }
+    // Block
+    for (i = 0; i < 9; i++) { if (!board[i]) { board[i]='X'; if (checkWin()) { board[i]=null; return i; } board[i]=null; } }
+    // Center
+    if (!board[4]) return 4;
+    // Corners
+    var corners = [0,2,6,8].filter(function(j){ return !board[j]; });
+    if (corners.length) return corners[Math.floor(Math.random() * corners.length)];
+    // Edges
+    empties = [1,3,5,7].filter(function(j){ return !board[j]; });
+    if (empties.length) return empties[0];
+    return null;
+  }
 
 })();
 </script>
