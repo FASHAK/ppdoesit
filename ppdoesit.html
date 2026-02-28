@@ -18,12 +18,7 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body { background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; overflow-x: hidden; }
-  body::before {
-    content: ''; position: fixed; inset: 0;
-    background-image: linear-gradient(rgba(0,245,196,0.03) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(0,245,196,0.03) 1px, transparent 1px);
-    background-size: 60px 60px; pointer-events: none; z-index: 0;
-  }
+  #particle-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 
   /* NAV */
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,245,196,0.08); }
@@ -111,6 +106,35 @@
   .mode-btn { padding: 0.5rem 1rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; transition: all 0.2s; }
   .mode-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(0,245,196,0.05); }
 
+
+  /* TYPING TEST */
+  .typing-section { padding: 6rem 4rem; position: relative; z-index: 1; }
+  .typing-container { max-width: 720px; margin: 0 auto; }
+  .typing-meta { display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; }
+  .typing-stat { text-align: center; padding: 0.9rem 1.6rem; background: var(--surface); border: 1px solid var(--border); min-width: 90px; }
+  .typing-stat-val { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--accent); line-height: 1; }
+  .typing-stat-val.danger { color: var(--accent2); }
+  .typing-stat-label { font-size: 0.55rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
+  .typing-prompt { background: var(--surface); border: 1px solid var(--border); padding: 1.8rem 2rem; font-size: 1rem; line-height: 1.9; letter-spacing: 0.3px; margin-bottom: 1.2rem; min-height: 110px; position: relative; user-select: none; }
+  .typing-prompt .char { transition: color 0.1s; }
+  .typing-prompt .char.correct { color: var(--accent); }
+  .typing-prompt .char.wrong { color: var(--accent2); background: rgba(255,77,109,0.15); }
+  .typing-prompt .char.cursor { border-left: 2px solid var(--accent); animation: cursorBlink 0.8s ease-in-out infinite; }
+  @keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} }
+  #typingInput { width: 100%; background: var(--bg); border: 1px solid var(--border); color: var(--text); font-family: 'DM Mono', monospace; font-size: 0.9rem; padding: 0.9rem 1.2rem; outline: none; transition: border-color 0.3s; resize: none; }
+  #typingInput:focus { border-color: var(--accent); }
+  #typingInput:disabled { opacity: 0.4; cursor: not-allowed; }
+  .typing-btns { display: flex; gap: 1rem; justify-content: center; margin-top: 1.2rem; }
+  .typing-result { text-align: center; margin-top: 1.5rem; padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); display: none; }
+  .typing-result.show { display: block; }
+  .typing-result-title { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--accent); margin-bottom: 0.8rem; }
+  .typing-result-stats { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
+  .typing-result-stat { font-size: 0.75rem; color: var(--muted); }
+  .typing-result-stat span { color: var(--text); font-weight: 500; }
+  .difficulty-select { display: flex; gap: 0.5rem; justify-content: center; margin-bottom: 1.5rem; }
+  .diff-btn { padding: 0.4rem 1rem; font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; transition: all 0.2s; }
+  .diff-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(0,245,196,0.05); }
+
   /* FOOTER */
   footer { padding: 3rem 4rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
   footer .logo { font-size: 1.2rem; }
@@ -139,6 +163,7 @@
 </style>
 </head>
 <body>
+<canvas id="particle-canvas"></canvas>
 
 <!-- NAV -->
 <nav>
@@ -273,6 +298,54 @@
     </div>
   </div>
 </section>
+
+<!-- TYPING SPEED TEST -->
+<section class="typing-section" id="typing">
+  <div class="section-label" style="text-align:center;">// Test Your Speed</div>
+  <div class="typing-container">
+    <h2 class="game-title">Typing Speed Test</h2>
+    <p class="game-subtitle" style="margin-bottom:1.5rem;">How fast can you type AI knowledge?</p>
+
+    <div class="difficulty-select">
+      <button class="diff-btn active" onclick="setDifficulty('easy')">Easy</button>
+      <button class="diff-btn" onclick="setDifficulty('medium')">Medium</button>
+      <button class="diff-btn" onclick="setDifficulty('hard')">Hard</button>
+    </div>
+
+    <div class="typing-meta">
+      <div class="typing-stat">
+        <div class="typing-stat-val" id="tWpm">--</div>
+        <div class="typing-stat-label">WPM</div>
+      </div>
+      <div class="typing-stat">
+        <div class="typing-stat-val" id="tAcc">--</div>
+        <div class="typing-stat-label">Accuracy</div>
+      </div>
+      <div class="typing-stat">
+        <div class="typing-stat-val" id="tTimer">60</div>
+        <div class="typing-stat-label">Seconds</div>
+      </div>
+    </div>
+
+    <div class="typing-prompt" id="typingPrompt"></div>
+    <textarea id="typingInput" rows="2" placeholder="Click here and start typing..." spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"></textarea>
+
+    <div class="typing-btns">
+      <button class="game-btn" onclick="startTypingTest()">&#9654; Start / Restart</button>
+    </div>
+
+    <div class="typing-result" id="typingResult">
+      <div class="typing-result-title" id="resultTitle">Test Complete!</div>
+      <div class="typing-result-stats">
+        <div class="typing-result-stat">WPM: <span id="finalWpm">--</span></div>
+        <div class="typing-result-stat">Accuracy: <span id="finalAcc">--</span></div>
+        <div class="typing-result-stat">Correct: <span id="finalCorrect">--</span></div>
+        <div class="typing-result-stat">Errors: <span id="finalErrors">--</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <!-- FOOTER -->
 <footer>
@@ -561,6 +634,262 @@ function resetScore() {
   });
   resetGame();
 }
+
+// ── PARTICLE NETWORK ─────────────────────────────────────────────────────────
+(function() {
+  var canvas = document.getElementById('particle-canvas');
+  var ctx = canvas.getContext('2d');
+  var W, H, particles, mouse = { x: -9999, y: -9999 };
+  var COUNT = window.innerWidth < 600 ? 50 : 90;
+  var MAX_DIST = 140;
+  var ACCENT = '0,245,196';
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function Particle() {
+    this.x  = Math.random() * W;
+    this.y  = Math.random() * H;
+    this.vx = (Math.random() - 0.5) * 0.5;
+    this.vy = (Math.random() - 0.5) * 0.5;
+    this.r  = Math.random() * 1.8 + 0.8;
+  }
+
+  Particle.prototype.update = function() {
+    this.x += this.vx;
+    this.y += this.vy;
+    if (this.x < 0 || this.x > W) this.vx *= -1;
+    if (this.y < 0 || this.y > H) this.vy *= -1;
+  };
+
+  function init() {
+    resize();
+    particles = [];
+    for (var i = 0; i < COUNT; i++) particles.push(new Particle());
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    // Update + draw dots
+    for (var i = 0; i < particles.length; i++) {
+      particles[i].update();
+      ctx.beginPath();
+      ctx.arc(particles[i].x, particles[i].y, particles[i].r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(' + ACCENT + ',0.55)';
+      ctx.fill();
+    }
+
+    // Draw connections between nearby particles
+    for (var a = 0; a < particles.length; a++) {
+      for (var b = a + 1; b < particles.length; b++) {
+        var dx = particles[a].x - particles[b].x;
+        var dy = particles[a].y - particles[b].y;
+        var dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < MAX_DIST) {
+          ctx.beginPath();
+          ctx.moveTo(particles[a].x, particles[a].y);
+          ctx.lineTo(particles[b].x, particles[b].y);
+          ctx.strokeStyle = 'rgba(' + ACCENT + ',' + (1 - dist/MAX_DIST) * 0.18 + ')';
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+      }
+      // Connect to mouse
+      var mdx = particles[a].x - mouse.x;
+      var mdy = particles[a].y - mouse.y;
+      var mdist = Math.sqrt(mdx*mdx + mdy*mdy);
+      if (mdist < MAX_DIST * 1.4) {
+        ctx.beginPath();
+        ctx.moveTo(particles[a].x, particles[a].y);
+        ctx.lineTo(mouse.x, mouse.y);
+        ctx.strokeStyle = 'rgba(' + ACCENT + ',' + (1 - mdist/(MAX_DIST*1.4)) * 0.35 + ')';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', init);
+  document.addEventListener('mousemove', function(e) { mouse.x = e.clientX; mouse.y = e.clientY; });
+  document.addEventListener('mouseleave', function() { mouse.x = -9999; mouse.y = -9999; });
+
+  init();
+  draw();
+})();
+
+// ── TYPING SPEED TEST ────────────────────────────────────────────────────────
+(function() {
+  var QUOTES = {
+    easy: [
+      "AI stands for artificial intelligence and it is changing the world fast.",
+      "Automation helps businesses save time and reduce human error every day.",
+      "Machine learning allows computers to learn from data without being told what to do.",
+      "The future of work will involve humans and AI working side by side.",
+      "Robots and software agents can now handle tasks that once needed human experts."
+    ],
+    medium: [
+      "Large language models are trained on vast amounts of text data and can generate human-like responses with surprising accuracy.",
+      "Workflow automation eliminates repetitive manual tasks by connecting software tools and triggering actions based on predefined rules.",
+      "Reinforcement learning from human feedback is the key technique that made AI assistants genuinely useful and aligned with human values.",
+      "Neural networks are computational systems loosely modeled on the human brain consisting of layers of interconnected nodes that process information.",
+      "Prompt engineering is the practice of crafting precise inputs to guide AI language models toward producing the most useful and accurate outputs."
+    ],
+    hard: [
+      "Transformer architecture relies on self-attention mechanisms that allow each token in a sequence to attend to every other token simultaneously enabling parallelization during training unlike recurrent networks.",
+      "Generative adversarial networks consist of two competing neural networks where a generator creates synthetic data and a discriminator attempts to distinguish it from real data pushing both to improve iteratively.",
+      "The halting problem proved by Alan Turing in 1936 demonstrates that no general algorithm can determine whether an arbitrary program will eventually halt or run forever representing a fundamental limit of computation.",
+      "Retrieval augmented generation combines parametric knowledge stored in model weights with non-parametric retrieval from external databases allowing language models to access up-to-date information beyond their training cutoff.",
+      "Federated learning enables machine learning models to train across decentralized devices holding local data samples without exchanging raw data preserving privacy while still improving the global model through gradient aggregation."
+    ]
+  };
+
+  var difficulty  = 'easy';
+  var timerLimit  = 60;
+  var timerEl     = document.getElementById('tTimer');
+  var wpmEl       = document.getElementById('tWpm');
+  var accEl       = document.getElementById('tAcc');
+  var promptEl    = document.getElementById('typingPrompt');
+  var inputEl     = document.getElementById('typingInput');
+  var resultEl    = document.getElementById('typingResult');
+
+  var testActive  = false;
+  var timeLeft    = timerLimit;
+  var intervalId  = null;
+  var currentText = '';
+  var charSpans   = [];
+  var totalTyped  = 0;
+  var totalErrors = 0;
+  var startTime   = null;
+
+  window.setDifficulty = function(d) {
+    difficulty = d;
+    document.querySelectorAll('.diff-btn').forEach(function(b) {
+      b.classList.toggle('active', b.textContent.toLowerCase() === d);
+    });
+    resetTest();
+  };
+
+  function pickQuote() {
+    var arr = QUOTES[difficulty];
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function renderPrompt(text) {
+    currentText = text;
+    charSpans = [];
+    promptEl.innerHTML = '';
+    for (var i = 0; i < text.length; i++) {
+      var span = document.createElement('span');
+      span.className = 'char' + (i === 0 ? ' cursor' : '');
+      span.textContent = text[i];
+      promptEl.appendChild(span);
+      charSpans.push(span);
+    }
+  }
+
+  function resetTest() {
+    clearInterval(intervalId);
+    testActive  = false;
+    timeLeft    = timerLimit;
+    totalTyped  = 0;
+    totalErrors = 0;
+    startTime   = null;
+    timerEl.textContent = timerLimit;
+    timerEl.className   = 'typing-stat-val';
+    wpmEl.textContent   = '--';
+    accEl.textContent   = '--';
+    inputEl.value       = '';
+    inputEl.disabled    = false;
+    resultEl.classList.remove('show');
+    renderPrompt(pickQuote());
+    inputEl.focus();
+  }
+
+  window.startTypingTest = function() { resetTest(); };
+
+  function startTimer() {
+    startTime  = Date.now();
+    testActive = true;
+    intervalId = setInterval(function() {
+      timeLeft--;
+      timerEl.textContent = timeLeft;
+      if (timeLeft <= 10) timerEl.className = 'typing-stat-val danger';
+
+      // Live WPM
+      var elapsed = (Date.now() - startTime) / 60000;
+      var wpm = elapsed > 0 ? Math.round((totalTyped / 5) / elapsed) : 0;
+      wpmEl.textContent = wpm;
+
+      if (timeLeft <= 0) finishTest();
+    }, 1000);
+  }
+
+  function finishTest() {
+    clearInterval(intervalId);
+    testActive = false;
+    inputEl.disabled = true;
+
+    var elapsed = timerLimit - timeLeft || timerLimit;
+    var mins    = elapsed / 60;
+    var wpm     = Math.round((totalTyped / 5) / (mins || 1));
+    var acc     = totalTyped > 0 ? Math.round(((totalTyped - totalErrors) / totalTyped) * 100) : 0;
+    var correct = totalTyped - totalErrors;
+
+    wpmEl.textContent = wpm;
+    accEl.textContent = acc + '%';
+
+    document.getElementById('finalWpm').textContent     = wpm + ' wpm';
+    document.getElementById('finalAcc').textContent     = acc + '%';
+    document.getElementById('finalCorrect').textContent = correct + ' chars';
+    document.getElementById('finalErrors').textContent  = totalErrors;
+
+    var title = wpm >= 80 ? '🔥 Blazing Fast!' : wpm >= 50 ? '⚡ Pretty Quick!' : wpm >= 30 ? '👍 Not Bad!' : '🐢 Keep Practising!';
+    document.getElementById('resultTitle').textContent = title;
+    resultEl.classList.add('show');
+  }
+
+  inputEl.addEventListener('input', function() {
+    if (!testActive && inputEl.value.length > 0) startTimer();
+    if (!testActive && !intervalId) return;
+
+    var typed = inputEl.value;
+    var pos   = typed.length;
+
+    charSpans.forEach(function(s, i) {
+      s.className = 'char';
+      if (i < pos) {
+        s.classList.add(typed[i] === currentText[i] ? 'correct' : 'wrong');
+      } else if (i === pos) {
+        s.classList.add('cursor');
+      }
+    });
+
+    // Count typed + errors for this keystroke delta
+    if (typed.length > (inputEl._lastLen || 0)) {
+      var newChar  = typed[typed.length - 1];
+      var expected = currentText[typed.length - 1];
+      totalTyped++;
+      if (newChar !== expected) totalErrors++;
+    }
+    inputEl._lastLen = typed.length;
+
+    // If they finished the quote, load a new one instantly
+    if (pos >= currentText.length) {
+      inputEl.value   = '';
+      inputEl._lastLen = 0;
+      renderPrompt(pickQuote());
+    }
+  });
+
+  // Initialise on load
+  renderPrompt(pickQuote());
+})();
+
 </script>
 </body>
 </html>
