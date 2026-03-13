@@ -41,7 +41,10 @@
 
   /* HERO */
   .hero { min-height: 100vh; display: flex; align-items: center; position: relative; padding: 11rem 4rem 4rem; z-index: 1; }
-  .hero-content { max-width: 900px; }
+  .hero-inner { width: 100%; max-width: 1280px; display: flex; align-items: center; justify-content: space-between; gap: 0; position: relative; }
+  .hero-content { flex: 1; max-width: 560px; position: relative; z-index: 2; }
+  .hero-visual { flex-shrink: 0; width: 580px; margin-right: -40px; position: relative; z-index: 1; opacity: 0; animation: fadeUp 0.8s 0.4s ease both; pointer-events: none; }
+  .hero-visual svg { width: 100%; height: auto; display: block; opacity: 0.75; }
   .tag { display: inline-block; font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.4rem 1rem; margin-bottom: 2rem; animation: fadeUp 0.6s ease both; }
   h1 { font-family: 'Syne', sans-serif; font-size: clamp(3.5rem, 9vw, 7rem); font-weight: 800; line-height: 0.95; letter-spacing: -3px; animation: fadeUp 0.6s 0.1s ease both; margin-bottom: 1.5rem; }
   h1 .line2 { display: block; color: transparent; -webkit-text-stroke: 1px var(--accent); }
@@ -155,6 +158,8 @@
     .ticker-bar { top: 62px; padding: 0.6rem 1.2rem; gap: 0.8rem; }
     .ticker-text { font-size: 0.67rem; }
     .hero { padding: 9rem 2rem 3rem; }
+    .hero-inner { flex-direction: column; }
+    .hero-visual { width: 300px; margin-right: 0; align-self: center; }
     section, .game-section { padding: 4rem 2rem; }
     .stats { padding: 2.5rem 1.5rem; gap: 1rem; }
     .stat-num { font-size: 2rem; }
@@ -192,22 +197,146 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-content">
-    <div class="tag">// AI Automation Expert</div>
-    <h1>Pelumi<br><span class="line2">Fasakin.</span></h1>
-    <p class="hero-desc">I build intelligent systems that make businesses move faster. From workflow automation to custom AI pipelines &mdash; I turn repetitive processes into zero-effort outputs.</p>
-    <div class="cta-row">
-      <a id="heroEmail" href="#" class="btn btn-primary">
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-        Email Me
-      </a>
-      <a href="https://x.com/ppdoesit" target="_blank" rel="noopener" class="btn btn-x">
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.738l7.73-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        DM on X
-      </a>
-      <a href="#services" class="btn btn-outline">What I Do</a>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="tag">// AI Automation Expert</div>
+      <h1>Pelumi<br><span class="line2">Fasakin.</span></h1>
+      <p class="hero-desc">I build intelligent systems that make businesses move faster. From workflow automation to custom AI pipelines &mdash; I turn repetitive processes into zero-effort outputs.</p>
+      <div class="cta-row">
+        <a id="heroEmail" href="#" class="btn btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          Email Me
+        </a>
+        <a href="https://x.com/ppdoesit" target="_blank" rel="noopener" class="btn btn-x">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.738l7.73-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          DM on X
+        </a>
+        <a href="#services" class="btn btn-outline">What I Do</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 380" width="420" height="380">
+        <defs>
+          <linearGradient id="laptopGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#0d1a22"/>
+            <stop offset="100%" style="stop-color:#1a3040"/>
+          </linearGradient>
+          <linearGradient id="screenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#050a0e"/>
+            <stop offset="100%" style="stop-color:#0d1a22"/>
+          </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="softglow">
+            <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <rect x="310" y="18" width="32" height="32" fill="none" stroke="#00f5c4" stroke-width="1.5" opacity="0.25" transform="rotate(8,326,34)"/>
+        <rect x="340" y="55" width="18" height="18" fill="none" stroke="#00f5c4" stroke-width="1" opacity="0.15" transform="rotate(-5,349,64)"/>
+
+        <circle cx="370" cy="310" r="18" fill="none" stroke="#00f5c4" stroke-width="1.2" opacity="0.2"/>
+        <circle cx="380" cy="140" r="2" fill="#00f5c4" opacity="0.2"/>
+        <circle cx="395" cy="155" r="2" fill="#00f5c4" opacity="0.15"/>
+        <circle cx="380" cy="170" r="2" fill="#00f5c4" opacity="0.1"/>
+        <line x1="30" y1="320" x2="90" y2="320" stroke="#1a3040" stroke-width="1" opacity="0.6"/>
+        <line x1="30" y1="326" x2="60" y2="326" stroke="#00f5c4" stroke-width="1" opacity="0.3"/>
+        <rect x="85" y="238" width="230" height="10" rx="2" fill="#1a3040"/>
+        <rect x="85" y="242" width="230" height="4" rx="1" fill="#0d1a22"/>
+        <rect x="95" y="248" width="8" height="60" rx="2" fill="#1a3040"/>
+        <rect x="297" y="248" width="8" height="60" rx="2" fill="#1a3040"/>
+        <rect x="85" y="238" width="230" height="2" rx="1" fill="#00f5c4" opacity="0.12"/>
+        <ellipse cx="255" cy="265" rx="45" ry="10" fill="#0d1a22" stroke="#1a3040" stroke-width="1.5"/>
+        <rect x="280" y="195" width="10" height="72" rx="5" fill="#1a3040"/>
+        <rect x="270" y="195" width="28" height="55" rx="6" fill="#0d1a22" stroke="#1a3040" stroke-width="1.5"/>
+        <rect x="272" y="197" width="12" height="50" rx="4" fill="#1a3040" opacity="0.5"/>
+        <line x1="255" y1="273" x2="240" y2="320" stroke="#1a3040" stroke-width="6" stroke-linecap="round"/>
+        <line x1="255" y1="273" x2="270" y2="320" stroke="#1a3040" stroke-width="6" stroke-linecap="round"/>
+        <ellipse cx="240" cy="320" rx="6" ry="3" fill="#0d1a22" stroke="#1a3040" stroke-width="1"/>
+        <ellipse cx="270" cy="320" rx="6" ry="3" fill="#0d1a22" stroke="#1a3040" stroke-width="1"/>
+        <rect x="100" y="210" width="150" height="30" rx="4" fill="url(#laptopGrad)" stroke="#1a3040" stroke-width="1.5"/>
+        <rect x="100" y="210" width="150" height="4" rx="2" fill="#00f5c4" opacity="0.08"/>
+        <rect x="108" y="218" width="134" height="3" rx="1.5" fill="#1a3040"/>
+        <rect x="108" y="224" width="100" height="3" rx="1.5" fill="#1a3040"/>
+        <rect x="108" y="207" width="134" height="6" rx="2" fill="#0d1a22" stroke="#1a3040" stroke-width="1"/>
+        <rect x="100" y="130" width="150" height="82" rx="5" fill="url(#laptopGrad)" stroke="#1a3040" stroke-width="2"/>
+        <rect x="105" y="135" width="140" height="72" rx="3" fill="url(#screenGrad)"/>
+        <rect x="105" y="135" width="140" height="72" rx="3" fill="#00f5c4" opacity="0.03"/>
+        <rect x="112" y="143" width="55" height="3" rx="1.5" fill="#00f5c4" opacity="0.6"/>
+        <rect x="112" y="150" width="35" height="3" rx="1.5" fill="#ff4d6d" opacity="0.5"/>
+        <rect x="120" y="157" width="65" height="3" rx="1.5" fill="#5a7a70" opacity="0.5"/>
+        <rect x="120" y="164" width="45" height="3" rx="1.5" fill="#00f5c4" opacity="0.35"/>
+        <rect x="112" y="171" width="75" height="3" rx="1.5" fill="#5a7a70" opacity="0.4"/>
+        <rect x="112" y="178" width="50" height="3" rx="1.5" fill="#ff4d6d" opacity="0.4"/>
+        <rect x="120" y="185" width="40" height="3" rx="1.5" fill="#00f5c4" opacity="0.5"/>
+        <rect x="105" y="135" width="140" height="2" rx="1" fill="#00f5c4" opacity="0.2"/>
+        <rect x="167" y="185" width="2" height="10" rx="1" fill="#00f5c4" opacity="0.9" filter="url(#glow)">
+          <animate attributeName="opacity" values="0.9;0;0.9" dur="1.2s" repeatCount="indefinite"/>
+        </rect>
+        <path d="M230,240 Q232,270 228,310 Q226,318 222,320" stroke="#00f5c4" stroke-width="14" stroke-linecap="round" fill="none" opacity="0.15"/>
+        <path d="M230,240 Q232,270 228,310 Q226,318 222,320" stroke="#1a3040" stroke-width="11" stroke-linecap="round" fill="none"/>
+        <path d="M220,240 Q215,270 210,310 Q208,318 204,322" stroke="#00f5c4" stroke-width="14" stroke-linecap="round" fill="none" opacity="0.15"/>
+        <path d="M220,240 Q215,270 210,310 Q208,318 204,322" stroke="#0d1a22" stroke-width="11" stroke-linecap="round" fill="none"/>
+        <path d="M220,240 Q215,270 210,310 Q208,318 204,322" stroke="#1a3040" stroke-width="11" stroke-linecap="round" fill="none"/>
+        <ellipse cx="222" cy="321" rx="12" ry="5" fill="#050a0e" stroke="#1a3040" stroke-width="1"/>
+        <ellipse cx="203" cy="323" rx="13" ry="5" fill="#050a0e" stroke="#1a3040" stroke-width="1"/>
+        <ellipse cx="219" cy="319" rx="6" ry="2" fill="#1a3040" opacity="0.5"/>
+        <path d="M200,185 Q195,210 195,240 L240,240 Q240,210 235,185 Z" fill="#0d1a22" stroke="#1a3040" stroke-width="1.5"/>
+        <path d="M200,185 Q197,200 196,215 L239,215 Q238,200 235,185 Z" fill="#00f5c4" opacity="0.08"/>
+        <path d="M210,185 L218,200 L226,185" fill="none" stroke="#1a3040" stroke-width="1.5" stroke-linecap="round"/>
+        <rect x="196" y="232" width="44" height="6" rx="2" fill="#1a3040"/>
+        <rect x="214" y="233" width="8" height="4" rx="1" fill="#00f5c4" opacity="0.4"/>
+        <path d="M200,195 Q185,210 172,225 Q165,232 158,235" stroke="#00f5c4" stroke-width="14" stroke-linecap="round" fill="none" opacity="0.12"/>
+        <path d="M200,195 Q185,210 172,225 Q165,232 158,235" stroke="#0d1a22" stroke-width="11" stroke-linecap="round" fill="none"/>
+        <path d="M200,195 Q185,210 172,225 Q165,232 158,235" stroke="#1a3040" stroke-width="9" stroke-linecap="round" fill="none"/>
+        <ellipse cx="157" cy="236" rx="9" ry="6" fill="#1a3040"/>
+        <ellipse cx="155" cy="235" rx="5" ry="3" fill="#00f5c4" opacity="0.1"/>
+        <path d="M235,195 Q248,178 255,165 Q260,156 262,148" stroke="#00f5c4" stroke-width="14" stroke-linecap="round" fill="none" opacity="0.12"/>
+        <path d="M235,195 Q248,178 255,165 Q260,156 262,148" stroke="#0d1a22" stroke-width="11" stroke-linecap="round" fill="none"/>
+        <path d="M235,195 Q248,178 255,165 Q260,156 262,148" stroke="#1a3040" stroke-width="9" stroke-linecap="round" fill="none"/>
+        <ellipse cx="263" cy="147" rx="8" ry="6" fill="#1a3040"/>
+        <rect x="258" y="122" width="20" height="24" rx="4" fill="#0d1a22" stroke="#1a3040" stroke-width="1.5"/>
+        <path d="M278,128 Q286,128 286,134 Q286,140 278,140" fill="none" stroke="#1a3040" stroke-width="2" stroke-linecap="round"/>
+        <rect x="260" y="124" width="16" height="6" rx="2" fill="#00f5c4" opacity="0.15"/>
+        <path d="M264,120 Q266,114 264,108" fill="none" stroke="#00f5c4" stroke-width="1.5" stroke-linecap="round" opacity="0.4">
+          <animate attributeName="opacity" values="0.4;0.1;0.4" dur="2s" repeatCount="indefinite"/>
+        </path>
+        <path d="M270,118 Q272,112 270,106" fill="none" stroke="#00f5c4" stroke-width="1.5" stroke-linecap="round" opacity="0.3">
+          <animate attributeName="opacity" values="0.3;0.05;0.3" dur="2.4s" repeatCount="indefinite"/>
+        </path>
+        <rect x="213" y="167" width="14" height="20" rx="5" fill="#1a3040"/>
+        <ellipse cx="220" cy="155" rx="26" ry="28" fill="#1a3040"/>
+        <ellipse cx="214" cy="145" rx="12" ry="14" fill="#00f5c4" opacity="0.04"/>
+        <ellipse cx="194" cy="158" rx="5" ry="7" fill="#1a3040" stroke="#0d1a22" stroke-width="1"/>
+        <ellipse cx="246" cy="158" rx="5" ry="7" fill="#1a3040" stroke="#0d1a22" stroke-width="1"/>
+        <path d="M194,148 Q195,122 220,120 Q245,122 246,148 Q240,134 220,133 Q200,134 194,148 Z" fill="#050a0e"/>
+        <path d="M200,130 Q210,126 220,126 Q230,126 238,130" fill="none" stroke="#1a3040" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+        <ellipse cx="210" cy="155" rx="4.5" ry="4" fill="#050a0e"/>
+        <ellipse cx="230" cy="155" rx="4.5" ry="4" fill="#050a0e"/>
+        <circle cx="212" cy="153" r="1.5" fill="#00f5c4" opacity="0.7"/>
+        <circle cx="232" cy="153" r="1.5" fill="#00f5c4" opacity="0.7"/>
+        <path d="M206,148 Q210,145 214,147" fill="none" stroke="#050a0e" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M226,147 Q230,144 234,147" fill="none" stroke="#050a0e" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M219,158 Q217,164 220,166 Q223,164 221,158" fill="none" stroke="#5a7a70" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
+        <path d="M212,172 Q220,178 228,172" fill="none" stroke="#00f5c4" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+        <rect x="105" y="205" width="140" height="2" rx="1" fill="#00f5c4" opacity="0.15" filter="url(#glow)"/>
+        <rect x="28" y="130" width="55" height="38" rx="4" fill="#0d1a22" stroke="#1a3040" stroke-width="1"/>
+        <rect x="28" y="130" width="55" height="3" rx="2" fill="#00f5c4" opacity="0.3"/>
+        <rect x="33" y="139" width="30" height="3" rx="1.5" fill="#5a7a70" opacity="0.5"/>
+        <rect x="33" y="146" width="40" height="3" rx="1.5" fill="#00f5c4" opacity="0.3"/>
+        <rect x="33" y="153" width="22" height="3" rx="1.5" fill="#ff4d6d" opacity="0.35"/>
+        <rect x="32" y="87" width="44" height="16" rx="3" fill="#050a0e" stroke="#00f5c4" stroke-width="1" opacity="0.5"/>
+        <rect x="35" y="92" width="12" height="6" rx="1.5" fill="#00f5c4" opacity="0.4"/>
+        <rect x="51" y="93" width="20" height="4" rx="1.5" fill="#5a7a70" opacity="0.4"/>
+        <text x="316" y="240" font-family="'DM Mono', monospace" font-size="7" fill="#00f5c4" opacity="0.25" letter-spacing="2">PP.DOES.IT</text>
+        <line x1="316" y1="243" x2="380" y2="243" stroke="#00f5c4" stroke-width="0.5" opacity="0.15"/>
+      </svg>
     </div>
   </div>
+
   <div class="float-el">make_ai_work_for_you.py</div>
   <div class="float-el">automation.execute()</div>
   <div class="float-el">pp_does_it: true</div>
